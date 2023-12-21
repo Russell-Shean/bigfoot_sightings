@@ -1,0 +1,95 @@
+<!-- This HTML file was made using R shiny code, to see the original R code 
+     look at the /rscripts/page4_ui.R file -->
+
+
+<div class="container-fluid" id="page-four">
+  <div class="data-definitions-box">
+    <div>
+      
+    <!-- <h4> is a heading -->
+      <h4>Data Definitions and Methods</h4>
+      <strong>Data suppression:</strong>
+      To protect the privacy of individual bigfeets, counts of fewer than 10 are not reported. We realize that many bigfeets would prefer to maintain privacy, however we also feel the public has the right to know about sightings because they have important environmental and conservation implications. This policy is consistent with best practices for data sharing in paranormal activity survalience. Some additional values that could allow someone to calculate those small numbers are also not reported.
+    </div>
+    <div>
+      <h4 id="hulk">Case Data</h4>
+      <strong>Sightings are defined by any of the following:</strong>
+      
+      <!-- <ul> makes an unordered list (bullet points), li is each bullet point -->
+      <ul>
+        <li>Blurry photos or videos</li>
+        <li>Really cool bigfoot tattoos if the person also has a really good story</li>
+        <li>
+          Someone swearing that they really saw one AND one of the following:
+      
+      <!-- <ol> starts an ordered list (numbers), <li> is each number -->
+          <ol>
+            <li>An autograph from a bigfoot</li>
+            <li>A cast of a bigfoot footprint</li>
+            <li>An appropriately large 'donation' to our organization</li>
+          </ol>
+        </li>
+      </ul>
+      <strong>Bigfoot safety:</strong>
+      Bigfeets are friendly and often give directions and snacks to lost hikers. They're more scared of you than you should be of them.
+      <br/>
+      <br/>
+      <strong>Hiking safety: </strong>
+      Always carry a flashlight and enough water.
+    </div>
+    <br/>
+    <div>
+      <h4>Other sources of  Data</h4>
+      <a href="https://www.arcgis.com/apps/View/index.html?appid=f987f36187c140aeab6eb157e909eb64">Sightings map</a>
+      <br/>
+      
+      <!-- <a> is a linke, the href attribute is the link's url, the text between
+               <a> and </a> is the text the user sees for the link -->
+      <a href="https://www.bfro.net/">Bigfoot Field Researchers Organization (BFRO)</a>
+      <br/>
+      <a href="https://twitter.com/BigfootnBeyond">Bigfoot n Beyond</a>
+      <br/>
+      <a href="https://twitter.com/NABigfootCenter">North American Bigfoot Center</a>
+      <br/>
+      <a href="https://twitter.com/BFRO_Updates">BFRO Twitter updates</a>
+      <br/>
+      <br/>
+    </div>
+    <div>
+      <h4>Okay, so where did the data really come from?</h4>
+      <strong>Point map:</strong>
+      <ul>
+        <li>
+          All of the sightings featured on the point map are
+          <em>real</em>
+          sightings scraped from the
+          <a href="https://www.bfro.net/GDB/state_listing.asp?state=wa">BFRO website</a>
+        </li>
+        <li>Most of the sightings are not geocoded, so I randomly assigned each sighting to a random location in the county where the sighting occured. Don't panic if you see a bigfoot next to your house.  The sighting didn't actually happen in your backyard, just in the same county as your backyard.</li>
+      </ul>
+      <strong>Everything else:</strong>
+      <ul>
+        <li>All the other data are completely made up using a random number generator</li>
+      </ul>
+    </div>
+    <br/>
+    <div>
+      <h4>Why are we looking at bigfoot sightings again?</h4>
+      The main purpose of this exercise is to test the feasibility of using shiny to make dashboards. Even if we used fake data for a real health condition, we run the risk of inadvertantly making people thing the data are real.  I used bigfoot sightings as our condition of interest so that we could reduce the risk of miscommunication with the public while we're testing this techology and evaluating security and publishing options.
+    </div>
+    <br/>
+    <div>
+      <h4>Can you share your code for this cool shiny dashboard?</h4>
+      Yes! The code is available on GitHub: <a href="https://github.com/Russell-Shean/bigfoot-dashboard-demo">https://github.com/Russell-Shean/bigfoot-dashboard-demo</a> 
+      <br/>
+      <br/>
+      
+      <!-- Inside this link we display an image instead of text --> 
+      <a href="https://www.bfro.net/">
+        <img src="https://i.pinimg.com/736x/e9/20/b6/e920b6d76ff3a10d63ae92cd73ad31ac.jpg" height="75px" style="padding-right: 15px"/>
+      </a>
+      <br/>
+      <br/>
+    </div>
+  </div>
+</div>
