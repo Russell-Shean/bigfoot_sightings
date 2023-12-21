@@ -3,7 +3,7 @@
 '''
 
 This script scrapes the bigfoot field researchers organization's website (https://www.bfro.net/GDB/) for reports of bigfoot sightings.
-
+Assume that the current directory is bigfoot_sightings, which means this script should be run using something like this: python3 ./python/bigfoot_downloader.py
 
 
 '''
@@ -22,7 +22,7 @@ landing_page = "https://www.bfro.net/GDB/"
 
 # output file
 # this is the json file where we'll write the reports to
-output_file = "all_sightings.json"
+output_file = "./data/raw_data/all_sightings.json"
 
 # Define functions ---------------------------------------------------------------------------------------------------------
 
@@ -172,10 +172,10 @@ just_report_links = list(filter(report_reg.search, all_report_links))
 just_media_links = list(filter(media_reg.search, all_report_links))
 
 # write links to file (so we can check later for updates?)
-with open("report_links.json", "w") as f:
+with open("./data/raw_data/report_links.json", "w") as f:
         json.dump(just_report_links, f)
 
-with open("media_links.json", "w") as f:
+with open("./data/raw_data/media_links.json", "w") as f:
         json.dump(just_media_links, f)
 
 # put all the sightings into a dictionary ----------------------------------------------------------------------------------------------------
@@ -188,12 +188,18 @@ all_sightings_dict = {}
 for i in range(len(just_report_links)):
 
 
+	# print periodic status updates
+	if i % 100 == 0:
+		print(f"Finished report number {i}")
+
+
 	# pause for a random amount of time between 0-2 seconds
 	time.sleep(secrets.randbelow(200) / 100)
 
 
 	# pull all the data from the reports and write to file
-	all_sightings_dict.update(pull_report(just_report_links[i]))
+	all_sightings_dict[i] = pull_report(just_report_links[i])
+
 
 
 # write the dictionary to a json file
