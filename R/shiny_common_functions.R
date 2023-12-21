@@ -45,60 +45,6 @@ round_add_commas <- function(x){
 
 
 
-# Get VPN IP address function --------------------------------------------------
-
-#' Return the IP address of DOH's VPN
-#'
-#' `get_VPN_ip()` returns a `string` that contains the IP address of the DOH
-#' VPN. The ip address is retrieved by sending the command `ipconfig` to the 
-#' windows system using the function `system2()`
-#'
-#'
-#' @param full_address Logical vector. Should the full http:// address be returned
-#' @return A `string` containing the VPN's IP address
-#' @seealso https://www.lifewire.com/find-ip-address-with-command-prompt-5185235
-#' [system2()]
-#' 
-#' @export
-#'   
-#' @details
-#' The VPN assigns a new ip address each time we connect to it, so the function 
-#' needs to be re-run after each new connection is established.  
-#' 
-#'The functions sends the function `ipconfig` to the windows command prompt 
-#'to discover information about internet configuration settings. Regex is then used to return 
-#'vpn's ip address from the output that 
-# the ipconfig command returns
-get_VPN_ip <- function(full_address = FALSE){
-  
-  
-  ip_address <- system2("ipconfig", stdout = TRUE) |>
-    
-    # collapse the output into a single text string
-    paste(collapse = "") |>   
-    
-    # extract everything between stuff inside parenthesis, 
-    #? makes it the most conservative pull
-    stringr::str_extract("(?<=doh\\.wa\\.lcl).*?(?=Subnet Mask)") |> 
-    
-    #extract everything after the colon
-    stringr::str_extract("(?<=:).*") |> 
-    
-    # remove all white space
-    stringr::str_remove_all(" ")  
-  
-  
-  if(full_address){ 
-    
-    ip_address <- paste0("http://", ip_address) 
-    
-  }
-  
-  return(ip_address)
-  
-}
-
-
 # Make missing values labels function ----------------------------------------
 # Make labels for different charts telling the user how many missing values 
 # there are for a particular variable. 
