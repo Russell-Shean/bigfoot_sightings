@@ -108,7 +108,7 @@ load("./data/bigfoot_county_date_aggregations.rda")
 load("./data/bigfoot_points.rda")
 load("./data/season_columns.rda")
 load("./data/statewide_date_aggregations.rda")
-load("./data/wa_counties2.rda")
+load("./data/wa_counties.rda")
 load("./data/Bigfoot_county_aggregations.rda")
 
 
@@ -144,9 +144,9 @@ sightings_date_range <- seq.Date(from = min(bigfoot_points$year_as_date),
 ### Make missing values  for under chart labels---------------------------
 # see shiny_common_functions.R for details 
 
-report_missing <- make_missing_values_labels("report_clasification", df = bigfoot_points)
+report_missing <- make_missing_values_labels("classification", df = bigfoot_points)
 weekday_missing <- make_missing_values_labels("report_weekday", df = bigfoot_points)
-season_missing <- make_missing_values_labels("SEASON", df = bigfoot_points)
+season_missing <- make_missing_values_labels("season", df = bigfoot_points)
 
 
 
@@ -175,13 +175,13 @@ BigFootIcon <- makeIcon(
 
 
 map_labels <- paste0("<strong>County: </strong>",  # <strong> create bold text
-                     wa_counties2$JURISDICT_LABEL_NM,  
+                     wa_counties$JURISDICT_LABEL_NM,  
                      "<br>",                      # br creates a line break                                  
                      "<strong>Total Number of Bigfoot Sightings: </strong>",
-                     wa_counties2$sightings_count,
+                     wa_counties$sightings_count,
                      "<br>",
                      "<strong>Percent of Total sightings: </strong>",
-                     round(wa_counties2$percent_of_total,digits = 2),
+                     round(wa_counties$percent_of_total, digits = 2),
                      "<br>",
                      "<br>",
                      "Counts that are below 10 are suppressed for<br> the Bigfeets privacy and represented with an '*'") %>% 
@@ -204,7 +204,7 @@ pal <- colorBin(c("#E6E6E6", "#C5E2FE", "#6EA6D9",
                   "#3D88CC", "#0A508F", "#073560", "#062E53"), 
                 #                # This must be how the function maps variable values 
                 #                # to the color ranges:
-                domain = wa_counties2$sightings_count,     
+                domain = wa_counties$sightings_count,     
                 bins = bins)
 
 # the color pallete 
@@ -227,20 +227,20 @@ legend_labels <-  c("Zero", "> 0 - 5", "> 5 - 20",
 # This defines the popup for the point map
 
 popup <- paste0(
-  "<p id='popup-title'><strong>", bigfoot_points$subtitle, "</strong></p>",
+  "<p id='popup-title'><strong>", bigfoot_points$summary, "</strong></p>",
   "<div id='first-popbox'>",
   "<strong>Report Date: </strong>", format(as.Date(bigfoot_points$report_date2), "%B %d, %Y"),
-  "<br><strong>Report Classification: </strong>", bigfoot_points$report_clasification,
+  "<br><strong>Report Classification: </strong>", bigfoot_points$classification,
   "<br><strong>Length of Report: </strong>", bigfoot_points$report_length, " characters",
-  "<br><strong>Report Season: </strong>", bigfoot_points$SEASON,
-  "<br><br><strong>County: </strong>", bigfoot_points$COUNTY,
-  "<br><strong>Nearest Town: </strong>", bigfoot_points$NEAREST_TOWN,
-  "<br><strong>Environment: </strong>", bigfoot_points$ENVIRONMENT,
+  "<br><strong>Report Season: </strong>", bigfoot_points$season,
+  "<br><br><strong>County: </strong>", bigfoot_points$county,
+  "<br><strong>Nearest Town: </strong>", bigfoot_points$nearest_town,
+  "<br><strong>Environment: </strong>", bigfoot_points$environment,
   "</div>",
   "<div id='second-popbox'>",
   "<p id='popbox-report-text'><strong>Report text</strong></p><br>", 
-  substr(bigfoot_points$OBSERVED, 1, 400),"... ",
-  "<br><a href='",bigfoot_points$report_links, "'>click to see full report</a></div>"
+  substr(bigfoot_points$observed, 1, 400),"... ",
+  "<br><a href='",bigfoot_points$url, "'>click to see full report</a></div>"
 ) %>% 
   lapply(htmltools::HTML)
 
@@ -371,7 +371,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
                  
              
                  
-                 
+           
                      
   ### First page map/table radio buttons---------------------------------------               
                                                   
@@ -458,7 +458,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
                    selectInput(inputId = "county_choices",
                                label = "Select a County",
                                choices = c("Statewide", 
-                                            sort(wa_counties2$JURISDICT_NM)),
+                                            sort(wa_counties$JURISDICT_NM)),
                                selected = "Statewide"),
 
 
@@ -707,14 +707,14 @@ ui <- navbarPage( # This is the title of the overall webpage:
                   inputId = "filtering_criteria",
                   label = "Choose Filtering Criteria", 
                   choices = list(
-                    `Report Classification` = levels(bigfoot_points$report_clasification),
-                    Season = levels(bigfoot_points$SEASON),
+                    `Report Classification` = levels(bigfoot_points$classification),
+                    Season = levels(bigfoot_points$season),
                     `Day of the week` = levels(bigfoot_points$report_weekday),
-                    County = unique(bigfoot_points$COUNTY)),
+                    County = unique(bigfoot_points$county)),
                                           
-                  selected = c(  levels(bigfoot_points$report_clasification),
-                                 levels(bigfoot_points$SEASON),
-                                 unique(bigfoot_points$COUNTY),
+                  selected = c(  levels(bigfoot_points$classification),
+                                 levels(bigfoot_points$season),
+                                 unique(bigfoot_points$county),
                                  levels(bigfoot_points$report_weekday)),
                                           
                    options = list(`selected-text-format`= "static",
@@ -765,7 +765,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
             id = "loading-gif",
             image.height = "650px",
             # image source needs to be checked for copyright
-             image = "https://raw.githubusercontent.com/Russell-Shean/bigfoot-dashboard-demo/main/www/resources/output-onlinegiftools3.gif"
+             image = "https://github.com/Russell-Shean/bigfoot_sightings/blob/main/www/resources/output-onlinegiftools3.gif?raw=true"
                       )
                                     
                                      
@@ -786,108 +786,6 @@ ui <- navbarPage( # This is the title of the overall webpage:
            includeHTML("www/html/page4.html")
 
         ),
-  
-  
-  
-  ## Fifth page -----------------------------------------------------------------
-  
-  tabPanel("Iframes!",
-      fluidPage(id = "page-five",
-  
-                
-                
- ### Fifth page intro text -----------------------------------------------------                        
-        tags$div(
-          tags$p(id = "shiny-page-intro",
-                 class = "intro-text",
-            HTML('This page shows an example of how iframes can be used to embed 
-                 documents, PowerBI apps, even other shiny apps')
-                                     ),
-          
-          
-          
- ### iframe selection radio buttons -------------------------------------------
-                              
-        tags$div(
-                                
-          wellPanel(id = "radio-button-well2",
-                                          
-          # This creates a set of radiobuttons
-            radioButtons(
-              # this is the html id attribute
-              inputId = "iframe_selection",   
-              # this is a title for the button
-              label = NULL,                      
-              choices = c("Research Paper",
-                           "Power BI App",
-                           "A Different Shiny App"),  
-              selected = "Research Paper", 
-              # this makes the button horizontal
-              inline = TRUE)                     
-                                )
-                                
-                                
-                                
-                              )
-                            ),
-  
- 
- 
- ### First iframe ------------------------------------------------------------
- 
-         tags$div(id = "iframe_panel",
-
-            # A conditional panel is an html element that only appears if 
-            # a condition is met
-                              
-           # if the user selects the table:
-            conditionalPanel(
-               condition = "input.iframe_selection == 'Research Paper'",
-                                
-
-               HTML('<iframe 
-                      id="research-pdf"
-                      class="external-iframe" 
-                      src="https://www.biorxiv.org/content/10.1101/2023.01.14.524058v2.full.pdf#toolbar=0&navpanes=0&scrollbar=0" 
-                      title="Bigfoots or Black Bears">
-                      </iframe>'),
-                                
-                              ),
-  
-           
-           
-  ### second iframe -----------------------------------------------------------                            
-
-            conditionalPanel(
-                condition = "input.iframe_selection == 'Power BI App'",
-                HTML('<iframe 
-                     id="powerBI-app" 
-                     class="external-iframe" 
-                     src="https://app.powerbigov.us/view?r=eyJrIjoiNDMyMTdkMTktNmE1My00MDMzLTk0ZDctNTcxMDU5NWI3MWVkIiwidCI6IjExZDBlMjE3LTI2NGUtNDAwYS04YmEwLTU3ZGNjMTI3ZDcyZCJ9" 
-                     title="Washington State Covid Wastewater Dashboard">
-                     </iframe>')
-                                
-                                
-                              ),
-  
-  
-  
-  ### Third iframe ----------------------------------------------------------
-  
-            conditionalPanel(
-                condition = "input.iframe_selection == 'A Different Shiny App'",
-                HTML(
-                  '<iframe 
-                  id="external-shiny" 
-                  class="external-iframe" 
-                  src="https://russellshean.shinyapps.io/twitter_shiny/" 
-                  title="Twitter Shiny"></iframe>'),
-                                
-                                
-                              ),
-
-                              
-                              ))),
 
 
  
@@ -932,7 +830,7 @@ server <- function(input, output, session) {
     
     #this is the shapefile we made in the preprocesing step
     # it's got county shapes with sightings count data
-    wa_counties2 %>%
+    wa_counties %>%
       
       #pipes the shape files into a leaflet map
       # more info about leaflet:  https://rstudio.github.io/leaflet/
@@ -948,7 +846,7 @@ server <- function(input, output, session) {
         
         # this is an internal id that will be useful for getting 
         # mouse hover and click data back to the server
-        layerId = wa_counties2$JURISDICT_LABEL_NM,
+        layerId = wa_counties$JURISDICT_LABEL_NM,
         
         #line border thickness
         weight = 2,
@@ -1170,7 +1068,7 @@ server <- function(input, output, session) {
   output$missing_counties_note <- renderText({
     paste0("0 out of ",
            round_add_commas(
-             sum(wa_counties2$sightings_count, 
+             sum(wa_counties$sightings_count, 
                  na.rm = TRUE)),
            " sightings are missing location data")
     
@@ -1192,7 +1090,7 @@ server <- function(input, output, session) {
       ggplot() +
       
       # create bar chart
-      geom_bar(aes(x = report_clasification),
+      geom_bar(aes(x = classification),
                
                #color of bars
                fill = "#0D6ABF") +
@@ -1425,7 +1323,7 @@ server <- function(input, output, session) {
     
     
     tool_tip_data <-  bigfoot_points %>%
-      filter(!is.na(report_clasification))
+      filter(!is.na(classification))
     
     
     
@@ -1434,13 +1332,13 @@ server <- function(input, output, session) {
     # because we made this variable a factor
     # so after we round the mouse's x position to either 0, 1, 2 , 3
     # we can use levels to return the correct report classification
-    classification_name <- levels(bigfoot_points$report_clasification)[round(hover$x)]
+    classification_name <- levels(bigfoot_points$classification)[round(hover$x)]
     
     
     # This is the sightings count for only the report classification that we rounded to above
     count_by_classification <- bigfoot_points %>%
-      filter(!is.na(report_clasification)) %>%
-      filter(report_clasification == classification_name)  %>%
+      filter(!is.na(classification)) %>%
+      filter(classification == classification_name)  %>%
       nrow()
     
     # percent of total for only the report classificationwe choose by plot hovering
@@ -1560,11 +1458,10 @@ server <- function(input, output, session) {
     # This filters bigfoot points by the filtering criteria selected
     # in the dropdown list
     bigfoot_points %>% 
-      dplyr::filter(SEASON %in% input$filtering_criteria,
+      dplyr::filter(season %in% input$filtering_criteria,
                     report_weekday %in% input$filtering_criteria,
-                    #report_month %in% input$filtering_criteria,
-                    COUNTY %in% input$filtering_criteria,
-                    report_clasification %in% input$filtering_criteria)   
+                    county %in% input$filtering_criteria,
+                    classification %in% input$filtering_criteria)   
     
     
   })
@@ -1581,20 +1478,20 @@ server <- function(input, output, session) {
     
     
     paste0(
-      "<p id='popup-title'><strong>",filtered_feet()$subtitle, "</strong></p>",
+      "<p id='popup-title'><strong>",filtered_feet()$summary, "</strong></p>",
       "<div id='first-popbox'>",
       "<strong>Report Date: </strong>", format(as.Date(filtered_feet()$report_date2), "%B %d, %Y"),
-      "<br><strong>Report Classification: </strong>", filtered_feet()$report_clasification,
+      "<br><strong>Report Classification: </strong>", filtered_feet()$classification,
       "<br><strong>Length of Report: </strong>", filtered_feet()$report_length, " characters",
-      "<br><strong>Report Season: </strong>", filtered_feet()$SEASON,
-      "<br><br><strong>County: </strong>", filtered_feet()$COUNTY,
-      "<br><strong>Nearest Town: </strong>", filtered_feet()$NEAREST_TOWN,
-      "<br><strong>Environment: </strong>", filtered_feet()$ENVIRONMENT,
+      "<br><strong>Report Season: </strong>", filtered_feet()$season,
+      "<br><br><strong>County: </strong>", filtered_feet()$county,
+      "<br><strong>Nearest Town: </strong>", filtered_feet()$nearest_town,
+      "<br><strong>Environment: </strong>", filtered_feet()$environment,
       "</div>",
       "<div id='second-popbox'>",
       "<p id='popbox-report-text'><strong>Report text</strong></p><br>", 
-      substr(filtered_feet()$OBSERVED, 1, 400), "... ",
-      "<br><a href='", filtered_feet()$report_links, "'>click to see full report</a></div>"
+      substr(filtered_feet()$observed, 1, 400), "... ",
+      "<br><a href='", filtered_feet()$url, "'>click to see full report</a></div>"
     ) %>% 
       lapply(htmltools::HTML)
     
@@ -1609,10 +1506,10 @@ server <- function(input, output, session) {
     leaflet()  %>%
       
       # This adds a counties outline
-      addPolylines(data = wa_counties2) %>% 
-      addProviderTiles("Stamen.Terrain")   %>% 
+      addPolylines(data = wa_counties) %>% 
+      addProviderTiles("Stadia.StamenTerrain")   %>% 
       addMarkers( data = bigfoot_points,
-                  label = ~subtitle,
+                  label = ~summary,
                   popup = popup,
                   icon = BigFootIcon,
                   group = "default_feets"
@@ -1684,7 +1581,7 @@ server <- function(input, output, session) {
             stroke = FALSE, 
             fillOpacity = 0.5,
             # the label is the thing that appears on hover
-            label = ~subtitle,
+            label = ~summary,
             # The popup is the thing that appears on click
             popup = reactive_labels(),
             fillColor = "red",
@@ -1701,7 +1598,7 @@ server <- function(input, output, session) {
           clearMarkers() %>% 
           clearPopups() %>%
           addMarkers(
-            label = ~subtitle,
+            label = ~summary,
             popup = reactive_labels(),
             icon = BigFootIcon,
             group = "default_feets"
@@ -1733,8 +1630,8 @@ server <- function(input, output, session) {
           # specifically for the season variable
           
           pal2 <- colorFactor(
-            palette = c(large_pal[1:(length(levels(bigfoot_points$SEASON)) - 1)], "#F3F2F1"),
-            domain = bigfoot_points$SEASON
+            palette = c(large_pal[1:(length(levels(bigfoot_points$season)) - 1)], "#F3F2F1"),
+            domain = bigfoot_points$season
           )
           
           leafletProxy("bigfoots_maps", data = filtered_feet()) %>%
@@ -1745,19 +1642,19 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = ~ (report_length / 500),
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
               
               # This colors the circle to correspond to the pal2 function
               # we made above
-              fillColor = ~pal2(SEASON),
+              fillColor = ~pal2(season),
               fillOpacity = 0.5,
               group = "colors") %>%
             
             # This adds a legend that tracks to the pal2 function
             addLegend( title = "Season",
                        pal = pal2, 
-                       values = ~SEASON, 
+                       values = ~season, 
                        
                        position = "bottomleft")
           
@@ -1786,7 +1683,7 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = ~ (report_length / 500),
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
               fillColor = ~pal2(report_weekday),
               fillOpacity = 0.5,
@@ -1808,8 +1705,8 @@ server <- function(input, output, session) {
         } else if ( input$color_var == "Report Classification") {
           
           pal2 <- colorFactor(
-            palette = c(large_pal[1:(length(levels(bigfoot_points$report_clasification)) - 1)], "#F3F2F1"),
-            domain = bigfoot_points$report_clasification
+            palette = c(large_pal[1:(length(levels(bigfoot_points$classification)) - 1)], "#F3F2F1"),
+            domain = bigfoot_points$classification
           )
           
           leafletProxy("bigfoots_maps", data = filtered_feet()) %>%
@@ -1824,15 +1721,15 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = ~ (report_length / 500),
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
-              fillColor = ~pal2(report_clasification),
+              fillColor = ~pal2(classification),
               fillOpacity = 0.5,
               group = "colors") %>%
             
             addLegend( title = "Report Classification",
                        pal = pal2, 
-                       values = ~report_clasification, 
+                       values = ~classification, 
                        
                        position = "bottomleft")
           
@@ -1855,7 +1752,7 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = ~ (report_length / 500),
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
               fillColor = "red",
               fillOpacity = 0.5,
@@ -1867,8 +1764,8 @@ server <- function(input, output, session) {
         if( input$color_var == "Season" ){
           
           pal2 <- colorFactor(
-            palette = c(large_pal[1:(length(levels(bigfoot_points$SEASON)) - 1)],"#F3F2F1"),
-            domain = bigfoot_points$SEASON
+            palette = c(large_pal[1:(length(levels(bigfoot_points$season)) - 1)],"#F3F2F1"),
+            domain = bigfoot_points$season
           )
           
           leafletProxy("bigfoots_maps", data = filtered_feet()) %>%
@@ -1879,15 +1776,15 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = 10,
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
-              fillColor = ~pal2(SEASON),
+              fillColor = ~pal2(season),
               fillOpacity = 0.5,
               group = "colors") %>%
             
             addLegend( title = "Season",
                        pal = pal2, 
-                       values = ~SEASON, 
+                       values = ~season, 
                        position = "bottomleft")
           
           
@@ -1907,7 +1804,7 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = 10,
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
               fillColor = ~pal2(report_weekday),
               fillOpacity = 0.5,
@@ -1922,8 +1819,8 @@ server <- function(input, output, session) {
         } else if ( input$color_var == "Report Classification") {
           
           pal2 <- colorFactor(
-            palette = c(large_pal[1:(length(levels(bigfoot_points$report_clasification)) - 1)], "#F3F2F1"),
-            domain = bigfoot_points$report_clasification
+            palette = c(large_pal[1:(length(levels(bigfoot_points$classification)) - 1)], "#F3F2F1"),
+            domain = bigfoot_points$classification
           )
           
           leafletProxy("bigfoots_maps", data = filtered_feet()) %>%
@@ -1934,14 +1831,14 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = 10,
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
-              fillColor = ~pal2(report_clasification),
+              fillColor = ~pal2(classification),
               fillOpacity = 0.5)  %>%
             
             addLegend( title = "Report Classification",
                        pal = pal2, 
-                       values = ~report_clasification, 
+                       values = ~classification, 
                        position = "bottomleft")
           
         } else{
@@ -1954,7 +1851,7 @@ server <- function(input, output, session) {
             addCircleMarkers(
               radius = 10,
               stroke = FALSE, 
-              label = ~subtitle,
+              label = ~summary,
               popup = reactive_labels(),
               fillColor = "red",
               fillOpacity = 0.5,

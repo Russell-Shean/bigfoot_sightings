@@ -96,11 +96,11 @@ make_missing_values_labels <- function(variable, df = bigfoot_points){
   
   
   # This formats the variable name for easy use in labels
-  variable_label <- ifelse(variable == "report_clasification",
+  variable_label <- ifelse(variable == "classification",
                            "a report classification",
                            ifelse(variable == "report_weekday",
                                   "the day of the week",
-                                  ifelse(variable == "SEASON",
+                                  ifelse(variable == "season",
                                          "season data",
                                          "Undefined")))
   
