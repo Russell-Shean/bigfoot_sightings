@@ -1,8 +1,25 @@
+#################################################################################3
+# This script cleans and aggregates the data scraped from the bigfoot field 
+# researchers organization's website. It should only be run if the data has 
+# been re-scraped. The scrapping scripts are in the python folder. 
 
-if(!require("jsonlite")){install.packages("jsonlite")}
+# Last updated: 12/23/2023
+###############################################################################
 
 
-library(magrittr)
+
+
+# Install and load packages -----------------------------------------------------------------
+if(!require("pacman")){install.packages("pacman")}
+
+pacman::p_load(dplyr,
+               jsonlite,
+               lubridate,
+               magrittr,
+               sf,
+               stringr,
+               tidyr)
+
 
 
 ## Define paths to data-----------------------------------------------
@@ -91,11 +108,8 @@ bigfoot_df <- bigfoot_df |>
            
            
            
-           ) #|>
+           ) 
   
-  
-
-
 
 ## Convert Washington State sightings to a sf dataframe--------------------------------------------------
 
@@ -136,24 +150,12 @@ for (i in 1:nrow(counties_with_bigfoots) ){
 bigfoot_points <- cbind(bigfoot_points, WA_bigfoot_df)
 
 
-
-
 ### aggregate sightings by just county-------------------------------------------------
-
-
 
 Bigfoot_county_aggregations <- WA_bigfoot_df %>%
   dplyr::count(county) %>%
   dplyr::mutate(percent_of_total = round(n / nrow(WA_bigfoot_df) * 100, digits = 1)) %>%
   dplyr::rename(sightings_count = n)
-
-
-
-
-
-
-
-
 
 ### aggregate sightings by just date -----------------------------------------------
 
@@ -162,22 +164,11 @@ statewide_date_aggregations <- WA_bigfoot_df %>%
   dplyr::mutate(percent_of_total = round(n / nrow(WA_bigfoot_df) * 100, digits = 1)) %>%
   dplyr::rename(sightings_count = n)
 
-
-
-
-
-
-
-
-
 ### aggregate by county AND date --------------------------------------------------
 
 bigfoot_county_date_aggregations <- WA_bigfoot_df %>%
   dplyr::group_by(county, year_as_date, .drop = FALSE) %>%
   dplyr::summarise(sightings_count = dplyr::n())
-
-
-
 
 
 # This creates a sequence of dates from the earliest sigthing to the last sighting
@@ -186,20 +177,14 @@ bigfoot_county_date_aggregations <- WA_bigfoot_df %>%
 
 sightings_date_range <- seq.Date(from = min(WA_bigfoot_df$year_as_date),
                                  to = max(WA_bigfoot_df$year_as_date),
-                                 by = "years") # %>% # as.character()
-
-
-
+                                 by = "years") 
 
 
 
 
 bigfoot_county_date_aggregations <- WA_bigfoot_df %>%
-  
-  #   dplyr::mutate(year_as_date = ordered(year_as_date, levels = sightings_date_range)) %>%
-  dplyr::group_by(county, year_as_date, .drop = FALSE) %>%
-  dplyr::summarise(sightings_count = dplyr::n()) #%>%
-# dplyr::mutate(year_as_date = as.Date(year_as_date))
+    dplyr::group_by(county, year_as_date, .drop = FALSE) %>%
+  dplyr::summarise(sightings_count = dplyr::n())
 
 
 
@@ -216,27 +201,15 @@ bigfoot_county_date_aggregations <- WA_bigfoot_df %>%
 # so we can make the sightings count zero instead of just not having that combo
 # in the data.
 
-
-
 county_date_combos <- data.frame(
-  
   county = rep(
     #  repeat each county for all dates
     unique(bigfoot_county_date_aggregations$county),
     each = length(sightings_date_range)),
   
-  
-  
   # repeat each date for all counties
   year_as_date = rep(sightings_date_range,
                      times = length(unique(bigfoot_county_date_aggregations$county))))
-
-
-
-
-
-
-
 
 
 ### add all possible date + county combos to data ----------------------------------
@@ -250,10 +223,7 @@ county_date_combos <- data.frame(
 
 bigfoot_county_date_aggregations <- bigfoot_county_date_aggregations %>%
   dplyr::right_join(county_date_combos) %>%
-  replace(is.na(.), 0) #%>%
-
-# rename(sightings_count = n)
-
+  replace(is.na(.), 0) 
 
 ### Prepare season by report classification table ------------------------------
 # make a cross table from the starting data set using the variables SEASON
@@ -264,9 +234,6 @@ season_columns <- WA_bigfoot_df %>%
   dplyr::summarise(n = dplyr::n()) %>%
   tidyr::pivot_wider(names_from = classification,
               values_from = n)
-
-
-
 
 
 ### shape file------------------------------------------------------------------
@@ -285,14 +252,11 @@ wa_counties <- wa_counties %>%
   replace(is.na(.), 0)  
 
 
-
-
-
 # Save final data --------------------------------------------------------------
 save(bigfoot_county_date_aggregations, file = "./data/bigfoot_county_date_aggregations.rda")
 save( bigfoot_points, file = "./data/bigfoot_points.rda")
 save( season_columns, file = "./data/season_columns.rda")
-save(statewide_date_aggregations ,file = "./data/statewide_date_aggregations.rda")
-save(wa_counties ,file = "./data/wa_counties.rda")
-save(Bigfoot_county_aggregations ,file = "./data/Bigfoot_county_aggregations.rda")
+save(statewide_date_aggregations, file = "./data/statewide_date_aggregations.rda")
+save(wa_counties, file = "./data/wa_counties.rda")
+save(Bigfoot_county_aggregations, file = "./data/Bigfoot_county_aggregations.rda")
 

@@ -4,7 +4,6 @@
 #              We're using this project to test out the technology and didn't 
 #              want to use a real health condition while we're testing.  ~end~ 
 
-# Authors: Russ (Dashboard team)  ~end~ 
 
 # ======================================================================= 
 
@@ -67,28 +66,18 @@
 
 
 ## Load libraries -------------------------------------------------------------      
+if(!require("pacman")){install.packages("pacman")}
 
-pacman::p_load(#"blastula",
-               #"data.table",
-               "dplyr",
+pacman::p_load("dplyr",
                "DT",
-               #"forcats",
                "ggplot2",
-               #"ggrepel",
-               #"keyring",
                "leaflet",
                "lubridate",
-               #"lwgeom",
-               #"mapview",
                "RColorBrewer",
-              #"readr",
                "sf",
                "shiny",
                "shinycssloaders",
                "shinyjs",
-            #   "shinythemes",
-            #   "stringr",
-            #   "tidyr",
                "shinyWidgets")
 
 ## define file paths
@@ -112,31 +101,18 @@ load("./data/wa_counties.rda")
 load("./data/Bigfoot_county_aggregations.rda")
 
 
-## Magic Numbers ------------------------------------------------------------------------------------------- 
-
-### discover VPN's IP address--------------------------------------------------
-# This function returns the VPN's IP address
-# we need to do this every time because the vpn's
-# ip address changes every time we reconnect to it. 
-
-# VPN_ip_address <- get_VPN_ip()
-
-
 
 ### set default Shiny port----------------------------------------------------
-# Paths to outputs 
 options(shiny.port = 6599)
-#options(shiny.host = VPN_ip_address)
 
 
-# This creates a sequence of dates from the earliest sigthing to the last sighting
+# This creates a sequence of dates from the earliest sighting to the last sighting
 # the sequence is every year, we use it for factor levels
 
 
 sightings_date_range <- seq.Date(from = min(bigfoot_points$year_as_date),
                                  to = max(bigfoot_points$year_as_date),
-                                 by = "years") # %>% # as.character()
-
+                                 by = "years")
 
 
 
@@ -169,7 +145,7 @@ BigFootIcon <- makeIcon(
 ### County Cloropleth labels ---------------------------------------------------
 
 # these are the popup labels for the map
-# it creats a vector of text strings
+# it creates a vector of text strings
 # that we then lapply into html
 # it defines the labels in html
 
@@ -196,7 +172,6 @@ map_labels <- paste0("<strong>County: </strong>",  # <strong> create bold text
 bins <- c(0, 1, 5, 20, 35, 50, 65, Inf)
 
 # This assigns colors to the breaks
-# same colors as PowerBI
 # There's one fewer color than bin, because the bins vector defines
 # the start and end point of each range
 
@@ -210,8 +185,7 @@ pal <- colorBin(c("#E6E6E6", "#C5E2FE", "#6EA6D9",
 # the color pallete 
 large_pal <- c("#e60049", "#0bb4ff", "#50e991",
                "#e6d800", "#9b19f5", "#ffa300",
-               "#dc0ab4", "#b3d4ff", "#00bfa0") #%>% 
- # str_to_upper()
+               "#dc0ab4", "#b3d4ff", "#00bfa0") 
 
 
 # map legend labels
@@ -438,7 +412,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
                                          
                                   ),
                                   
-              # the is the column that the epi curve chart will go inside
+              # the is the column that the sightings by year curve chart will go inside
               column(width = 7, 
                      
 
@@ -453,7 +427,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
                           
                           
                                                                   
-    ### Epi curve choices ------------------------------------------------------              
+    ### sightings by year curve choices ------------------------------------------------------              
                                                   
                    selectInput(inputId = "county_choices",
                                label = "Select a County",
@@ -476,11 +450,11 @@ ui <- navbarPage( # This is the title of the overall webpage:
     
     
     
-    ### Epi curve -----------------------------------------------------------
+    ### sightings by year curve -----------------------------------------------------------
                                          
                    tags$div(
                         id = "sighting_counts_plot_column",
-                        # here's the epi curve chart
+                        # here's the sightings by year curve chart
                         plotOutput("sighting_counts_plot",
                                                     
          # this tells shiny to listen to and store information
@@ -498,7 +472,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
     
     
     
-    ### Epi curve date slider--------------------------------------------------
+    ### sightings by year curve date slider--------------------------------------------------
                                          
                         tags$span(id = "slider-container",
                           tags$span(id = "date-slider2",
@@ -506,9 +480,9 @@ ui <- navbarPage( # This is the title of the overall webpage:
                                                                
                   # I set the maximum range, to the range of dates in the data
                               min = min(bigfoot_points$year_as_date, na.rm = TRUE),
-                  # min = levels(bigfoot_points$year_as_date)[1],
+  
                               max = max(bigfoot_points$year_as_date, na.rm = TRUE),
-                  #max = levels(bigfoot_points$year_as_date)[length(levels(bigfoot_points$year_as_date))],                              
+                  
                             # this makes the slider take up 100% of the column
                               width = '100%',
                                                                
@@ -520,9 +494,6 @@ ui <- navbarPage( # This is the title of the overall webpage:
                                                      na.rm = TRUE)),
                                      max(max = max(bigfoot_points$year_as_date, 
                                                      na.rm = TRUE))),
-    # value = c(min = levels(bigfoot_points$year_as_date)[1],
-    #        max = levels(bigfoot_points$year_as_date)[length(levels(bigfoot_points$year_as_date))]),
-            
                                                                
                         # this is so the slider doesn't have a title above it
                               label = NULL))),
@@ -952,7 +923,7 @@ server <- function(input, output, session) {
   
   
   
-  ## Sightings count  epi curve -------------------------------------------
+  ## Sightings count  sightings by year curve -------------------------------------------
   
   # this is the sightings count plot
   # its appearance depends on if the user clicks on a county on the map
@@ -962,8 +933,8 @@ server <- function(input, output, session) {
   output$sighting_counts_plot <- renderPlot({
     
     # this is what the plot looks like if the user hasn't clicked on a county on the map
-    # if(is.null(clicked_on_county$clickedShape)){
-    if(input$county_choices == "Statewide"){
+
+        if(input$county_choices == "Statewide"){
       
       bigfoot_points %>% 
         
@@ -1255,7 +1226,7 @@ server <- function(input, output, session) {
     
     
     # This for dynamically calculating the tooltip's position, between the 
-    # flamingos is all someelse's code:
+    # flamingos is all someone else's code:
     # https://gitlab.com/-/snippets/16220
     
     # 🦩
@@ -1903,106 +1874,7 @@ server <- function(input, output, session) {
     shinyjs::disable("users_message")
     shinyjs::disable("users_email")
     
-    
-    # get a time
-   # date_time <- add_readable_time() # => "Thursday, November 28, 2019 at 4:34 PM (CET)"
-    
-    # compose an email using markdown (which then uses html)
-    
-    
-    
-    ### email to server admin ---------------------------------------------------
-  #  email <-
-    #  compose_email(
-     #   body = md(
-      #    c(paste0('<html>Hello,<br>We got feedback on the bigfoot shiny dashboard.<br><br>',
-       #            input$users_email,
-        #           ' said: <br>"',
-         #          input$users_message,
-          #         '"</html>')
-     #     )
-      #  ),
-       # footer = md(
-       #   c(
-        #    "Email received at: ", date_time, "."
-      #    )
-  #      )
-   #   )
-    
-    
-    
-    ### email to user ------------------------------------------------------------
- #   email2 <-
-  #    compose_email(
-   #     body = md(
-    #      c(paste0('<html>Hello,<br>Thank you for submitting feedback to us. We will get back to you soon!<br>Here is a copy of what you told us:<br><br>"',
-     #              input$users_message,
-      #             '"</html>')
-       #   )
-    #    ),
-  #      footer = md(
-   #       c(
-    #        "Email sent at: ", date_time, "."
-     #     )
-  #      )
-   #   )
-    
-    # This is how you send the email
-    # it will use the stored credentials and not ask for the password a second time
-    
-    # Send email to the server administrator (Me! )
-   # smtp_send(
-    #  email = email,
-     # subject = "Someone gave us feedback on the Bigfoot Dashboard",
-    #  from = "russell.shean@doh.wa.gov",
-    #  to = c("russell.shean@doh.wa.gov", "russshean@gmail.com"),
-    #  credentials = creds_key("RUSS_CRED")
-  #  )
-    
-    # send email to user thanking them for their feedback
-  #  smtp_send(
-   #   email = email2,
-  #    subject = "Thanks for submitting feedback about our Bigfoot Dashboard!",
-  #    from = "russell.shean@doh.wa.gov",
-  #    to = input$users_email,
-  #    credentials = creds_key("RUSS_CRED")
-  #  )
-    
-    
-    
-    ### write feedback to log --------------------------------------------------
-    
-    # write the message to a log file on the Y drive
- #   message_received <- data.frame(date = date_time,
-  #                                 message = input$users_message,
-   #                                from = input$users_email)
-    
-    
-    
-    # check to see if a log file exsits
-   # if(exists(user_feedback_file)){
-      
-      # if file exists 
-      # read in log, append message to log, write updated log to file  
-      
-    #  all_messages <- read.csv(user_feedback_file)
-      
-      
-      
-     # all_messages <- rbind(all_messages, message_received)
-      
-    #  write.csv(all_messages, 
-   #             file = user_feedback_file,
-  #              row.names = FALSE)
-      
- #   } else{
-  #    write.csv(message_received, 
-   #             file = user_feedback_file,
-    #            row.names = FALSE)
-      
-#    }
-    
-    
+
     
     # This uses shinyjs to enable the send button, the input boxes and the popup
     shinyjs::enable("send")
