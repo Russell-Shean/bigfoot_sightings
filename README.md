@@ -29,42 +29,8 @@ The `app.R` file is divided into three main parts:
 The `App.R` file executes/loads serveral external files including      
 1. HTML, CSS, and javascript files stored in the `www/` folder         
 
-Raw HTML, CSS and Javascript can be included directly in shiny apps, here are some references          
-- css: https://shiny.rstudio.com/articles/css.html         
-- javascript: https://shiny.rstudio.com/articles/packaging-javascript.html            
-- html: https://stackoverflow.com/a/24876951/16502170       
-
-#### Inline comments in HTML, CSS, and Javascript       
-```
-/* CSS comments look like this */
-<!-- HTML comments look like this -->
-// Javascript comments look like this or like CSS comments
-
-```
-
 2. R scripts that define functions and pre process data stored in the `r_scripts` folder
 
-# Selected frameworks and packages used
-- `Shiny`  is an R package for creating interactive webpages and dashboards: https://shiny.rstudio.com/
-- `ggplot2` is an R package for creating graphics: https://r-graph-gallery.com/ggplot2-package.html
-- `DT` is an R package that interfaces to the data.tables javascript package for displaying interactive tables: https://rstudio.github.io/DT/
-- `leaflet` is an R package that interfaces to the leaflet javascript package for displaying interactive maps: https://rstudio.github.io/leaflet/
-- `sf` is an R package for manipulating spatial data: https://r-spatial.github.io/sf/
-- `CSS and HTML` are for definining and customizing the user interface beyond shiny default options: https://www.w3schools.com/html/html_css.asp
-
-
- 
-
-## Shiny Resources
-### Books
-- <a href="https://mastering-shiny.org/"><em>Mastering Shiny</em></a> by Hadley Wickham: An online book that gives an intro to Shiny  
-- Book about designing user interfaces: https://unleash-shiny.rinterface.com/index.html           
-- Book about engineering for production: https://engineering-shiny.org/index.html  
-- Book about how to use javascript with R (focus on htmlwigits and shiny): https://book.javascript-for-r.com/  
-
-### Shiny Gallery
-
-A great set of example shinies with source code: https://shiny.rstudio.com/gallery/  
 
 
 
