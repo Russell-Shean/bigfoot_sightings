@@ -27,22 +27,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # This runs the install.r command which install R packages
 # So this is a list of r packages that will be installed   
-RUN install.r blastula data.table dplyr DT forcats ggrepel keyring leaflet lubridate mapview RColorBrewer readr sf shiny shinycssloaders shinyjs shinythemes stringr tidyr shinyWidgets pacman
+RUN install.r dplyr DT lubridate RColorBrewer sf shiny shinycssloaders shinyjs shinyWidgets pacman
 
-# This sets the port and repeats it back
+# Make sure we're getting the latest version of leaflet...
+RUN R -e "install.packages('leaflet', dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
+
+RUN R -e "install.packages('leaflet.providers', dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
+
+# This sets the port and writes it to an rprofile file in the container
 RUN echo "local(options(shiny.port = 6599, shiny.host = '0.0.0.0'))" > /usr/lib/R/etc/Rprofile.site
 
 # create a new folder inside the container
 RUN mkdir /home/analysis
 
 # specifiy the working directory on the machine that's being used to create the container
-WORKDIR /home/russ/Documents/r_projects/docker_shiny
+WORKDIR /home/analysis/
 
 # copy the shiny app folder to the container
-COPY bigfoot_shiny_demo-main /home/analysis/bigfoot_shiny_demo-main
+COPY data data/ 
+COPY R R/
+COPY www www/ 
+COPY app.R /home/analysis/
 
-# No 100% sure what this does, the tutorial didn't really fully explain everything : https://hosting.analythium.io/dockerizing-shiny-applications/, 
-# also really bad: https://hosting.analythium.io/dockerized-shiny-apps-with-dependencies/, 
+#  https://hosting.analythium.io/dockerizing-shiny-applications/, 
+#  https://hosting.analythium.io/dockerized-shiny-apps-with-dependencies/, 
 
 RUN addgroup --system app \
     && adduser --system --ingroup app app
@@ -52,6 +60,6 @@ RUN addgroup --system app \
 # RUN chown app:app -R /home/app
 USER app
 EXPOSE 6599
-CMD ["R", "-e", "shiny::runApp('/home/analysis/bigfoot_shiny_demo-main')"]
+CMD ["R", "-e", "shiny::runApp('/home/analysis/')"]
 
 

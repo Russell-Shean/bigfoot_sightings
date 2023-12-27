@@ -317,7 +317,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
           "Bigfoot surveillance data are updated on the second tuesday after every full moon in February, or when we feel like it 😅. We make every effort to guarentee the accuracy of all the data that is entered into our data systems, but because we rely on the public to report sightings, we can't guarantee that every reported sighting wasn't actually a yeti or an abominable snowman. To report a sighting please send us an email!",
           tags$br(),
           tags$p(class="time-stamp", 
-                 tags$strong("Last Updated: March 8th, 2023 10:00 AM")))
+                 tags$strong("Last Updated: December 23, 2023 10:00 AM")))
                          
                        ),  # end of first row
                        
@@ -538,7 +538,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
         tags$div(class = "intro-text",
            HTML("The Bigfoot Field Researchers Organization assigns reports to one of three categories. For more information on the report classification system, please refer to their <a href='https://www.bfro.net/gdb/classify.asp#classification'>website</a>.<p id='classification-descriptions'><strong>Class A</strong>: A direct report where alternative explanations can be eliminated with high certainty<br><strong>Class B</strong>: A direct report where alternative explanations are more difficult to eliminate<br><strong>Class C</strong>: A secondhand report of a sighting.</p>"),
            tags$p(class = "time-stamp",
-           tags$strong("Last Updated: March 8th, 2023 10:00 AM")))),
+           tags$strong("Last Updated: December 23, 2023 10:00 AM")))),
                        
         tags$div(id = "three-plots-container",
            
@@ -1478,7 +1478,7 @@ server <- function(input, output, session) {
       
       # This adds a counties outline
       addPolylines(data = wa_counties) %>% 
-      addProviderTiles("Stadia.StamenTerrain")   %>% 
+      addProviderTiles(providers$Stadia.StamenTerrain)   %>% 
       addMarkers( data = bigfoot_points,
                   label = ~summary,
                   popup = popup,
