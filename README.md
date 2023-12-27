@@ -39,9 +39,6 @@ The `App.R` file executes/loads serveral external files including
 1. HTML, CSS, and javascript files stored in the `www/` folder         
 
 2. R scripts that define functions and pre process data stored in the `r_scripts` folder
-   
-3. Python scripts to scrape the data are stored in the `python` folder. The raw data is stored in the `data` folder 
-
 
 
 
