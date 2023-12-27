@@ -22,7 +22,12 @@ Here are some screenshots of what this demonstration app looks like. Scroll past
   <p align="center">          
   <img src="https://user-images.githubusercontent.com/119683040/215877771-f2573a55-cd9d-421e-84ed-7b21aeae1ae9.png">             
   </p>  
-  
+
+The app can also be run as a docker container
+```
+sudo docker run  -p 6599:6599 rshean/bigfoot-shiny:latest
+```
+If you don't have docker on your computer, you can also run the container on this online sandbox: https://labs.play-with-docker.com/ 
  
 # File organization        
 The `app.R` file is divided into three main parts:
@@ -34,6 +39,8 @@ The `App.R` file executes/loads serveral external files including
 1. HTML, CSS, and javascript files stored in the `www/` folder         
 
 2. R scripts that define functions and pre process data stored in the `r_scripts` folder
+   
+3. Python scripts to scrape the data are stored in the `python` folder. The raw data is stored in the `data` folder 
 
 
 
