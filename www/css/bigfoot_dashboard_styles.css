@@ -1,25 +1,25 @@
 /* This is a CSS file. It is used to change the look feel and format of html
    elements on the page. The general format is (in Pseudocode):
-         
+
          CSS SELECTOR {
            ATTRIBUTE NAME:ATTRIBUTE VALUE;
          }
-         
+
     A CSS selector is an HTML element on the page, HTML classes start with .
                                                    HTML elements start with #
                                                    Tags are just their plain NAME
-                                                   
-   If you only want to target a specific html element by tag and not target all 
-   the elements with that tag you can use things like nth child and child selction 
+
+   If you only want to target a specific html element by tag and not target all
+   the elements with that tag you can use things like nth child and child selction
    using >
-   
-   A lot of the HTML ids and classes are specified in the UI of the shiny 
+
+   A lot of the HTML ids and classes are specified in the UI of the shiny
    Or in the external HTML files
-   
+
    I did most of the modifications in the browser using the web developer tools
-   and then copying and pasting the css changes into this file. 
-   More about web development tools : https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools  
-   
+   and then copying and pasting the css changes into this file.
+   More about web development tools : https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools
+
    I haven't documented all the CSS in this fill, because modifications are
    probably easier to make in the browser */
 
@@ -34,7 +34,7 @@
   margin-top: 10px;
   margin-bottom: 0;
   border-top-right-radius: 15px;
-  
+
   font-size: 20px;
 }
 
@@ -54,9 +54,9 @@
     margin-right: 10px;
     margin-left: 15px;
     margin-top: 10px;
-    
+
     padding-right: 0px;
-    
+
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -134,21 +134,21 @@ p {
 
 .intro-text {
   background-color:#EFF0F3;
-  
+
   padding-left:15px;
   padding-right: 15px;
   padding-top:5px;
   padding-bottom:10px;
-  
+
   border-bottom-left-radius:15px;
   border-bottom-right-radius:15px;
 
   margin-right: 3px;
   margin-left:15px;
   margin-bottom: 0;
-  
+
   font-size: 20px;
-  
+
 }
 
 
@@ -156,7 +156,7 @@ p {
   font-family: Segoe UI, wf_segoe-ui_normal, helvetica, arial, sans-serif;
   background-color: white;
   padding: 15px;
-  
+
   margin-right: -12px;
   margin-bottom: 60px;
   border-bottom-left-radius: 15px;
@@ -240,17 +240,17 @@ div.col-sm-7:nth-child(3) {
   padding-top: 0;
   border-radius: 15px;
   width: fit-content;
-  padding-right: 100px;
+  padding-right: 10px;
   display: inline-block;
   margin-top: 0;
   height: fit-content;
-  
-  
+
+
   background-color: white;
   color: black;
   border-color: black;
-  
-  
+
+
 }
 
 
@@ -290,17 +290,17 @@ span.irs:nth-child(2) {
   background-color: #EFF0F3;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  
+
   margin-top: 0;
 }
 
-/* data tables is tricky because it calls to a javascript API and the API 
+/* data tables is tricky because it calls to a javascript API and the API
    will also make changes to the CSS... apparently sometimes after render
-   
+
    Tne !important modifier is needed to force some of the CSS styles
    A better way to do this is probably to write Javascript code to pass
    to the API inside of the shiny server #Goals */
-   
+
 #DataTables_Table_0 {
   background-color: white;
   table-layout: fixed;
@@ -316,7 +316,7 @@ span.irs:nth-child(2) {
 #DataTables_Table_0 th{
   width: auto !important;
   white-space: normal;
-  
+
   /* this cuts off overflowing text with three dots...at least in theory lol */
   text-overflow: ellipsis;
   overflow: hidden;
@@ -350,10 +350,10 @@ span.irs:nth-child(2) {
 
   height: 100%;
   width: 100%;
-  
+
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  
+
 }
 
 
@@ -389,18 +389,18 @@ div.leaflet-pane:nth-child(6) {
 div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-output.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
   font-family: Segoe UI, wf_segoe-ui_normal, helvetica, arial, sans-serif;
 
-  
+
 }
 
-/* this targes all the tool tips by class 
+/* this targes all the tool tips by class
    z-index refers to the position on the z plane,
    so like it defines what appears on top, 9999 forces the tooltip
    to display on top of everything else on the page */
 
 .tooltip {
- 
- z-index: 9999 
-  
+
+ z-index: 9999
+
 }
 
 #DataTables_Table_1 {
@@ -411,7 +411,7 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
 
 
 #choice_selector {
- 
+
   display: flex;
   flex-direction: row;
   padding-top: 10px;
@@ -425,21 +425,17 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
 
 
 #page-3 > div:nth-child(1) {
- 
+
   margin-right: 3px;
 }
 
 
-#size_choice-container {
+.map_choice-container {
 
-  margin-right: 45px;
+  margin-right: 35px;
 }
 
 
-#color_choice-container {
-
-  margin-right: 45px;
-}
 
 
 .dropdown-toggle {
@@ -471,14 +467,14 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
 
 
 .time-stamp {
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: 10px;
   max-width: max-content;
 }
 
 /* from legend allignment */
 
-/* This forces the leaflet legend to allign the text and 
+/* This forces the leaflet legend to allign the text and
    colorful squares correctly to the left, some bug in the r package
    randomly caused them to become unalligned half way through this project */
 
@@ -565,10 +561,10 @@ div.row:nth-child(8) > div:nth-child(1) {
 }
 
 #bigfoot-shadow-img-container {
-  
+
   display: flex;
   justify-content: center;
-  
+
 }
 
 
@@ -600,7 +596,7 @@ div.row:nth-child(8) > div:nth-child(1) {
 
 
 .external-iframe {
- 
+
   width: 100.5%;
   height: 1437.50px;
   margin-left: auto;
@@ -702,11 +698,11 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   display: block;
   float: right;
   margin-left: auto;
-  
+
 }
 
 #map-well {
-  
+
   width: 100%;
 
 
@@ -718,14 +714,14 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   padding-top: 18px;
   padding-right: 20px;
   padding-bottom: 20px;
-  
-  
+
+
   position: sticky;
   top: 0;
 
   margin-right: 15px;
   margin-bottom: 20px;
-  
+
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
@@ -742,7 +738,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   padding-bottom: 5px;
   padding-right: 30px;
   margin-bottom: 20px;
-  
+
 }
 
 
@@ -783,9 +779,9 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   margin-right: -25px;
 }
 
-/* this is the class for the titles above the graphics (plots and tables) 
+/* this is the class for the titles above the graphics (plots and tables)
    on the second page */
-   
+
 .graphic-title {
   background-color: #07294C;
   color: white;
@@ -851,7 +847,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 /* leaflet popup labels */
 
 #popup-title {
-  
+
   text-align:center;
   background-color:#144361;
   color:white;
@@ -860,35 +856,35 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   border-width:5px;
   padding:7.5px;
   border-style:solid;
-  
-  
+
+
 }
 
 
 #first-popbox {
-  
+
   background-color:#6298BC;
   border-radius:15px;
   padding:7.5px;
   margin-top:0;
-  
+
 }
 
 #second-popbox {
-  
+
   background-color:#D9EAF7;
   border-radius:15px;
   padding:7.5px;
   margin-top:10px;
-  
+
 }
 
-#popbox-report-text{ 
-  
+#popbox-report-text{
+
   text-align:center;
   display:inline;
   left:50%;
   right:50%;
   width:100%;
-  
+
 }
