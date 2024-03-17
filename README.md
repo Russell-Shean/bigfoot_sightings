@@ -1,7 +1,7 @@
 # Bigfoot Shiny Demo
 ---------------------------------------------------------------------
 Here's a link to a live version of the app:         
-https://russellshean.shinyapps.io/bigfoot_sightings/
+https://russellshean.shinyapps.io/bigfoot_sightings3/
 --------------------------------------------------------------------
 This is a demonstration that shows how R's web development framework `shiny` can be used to make interactive dashboards and websites.  
 
