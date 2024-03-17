@@ -21,7 +21,7 @@ ButtonsBox.appendChild(TimeElem);
 
 
 
-// This removes the two giant dumb dots that
+// This removes the two giant dots that
 // inexplicably appear as part of the navigation bar
 
 
