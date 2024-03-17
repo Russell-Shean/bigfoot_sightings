@@ -1,25 +1,25 @@
 /* This is a CSS file. It is used to change the look feel and format of html
    elements on the page. The general format is (in Pseudocode):
-         
+
          CSS SELECTOR {
            ATTRIBUTE NAME:ATTRIBUTE VALUE;
          }
-         
+
     A CSS selector is an HTML element on the page, HTML classes start with .
                                                    HTML elements start with #
                                                    Tags are just their plain NAME
-                                                   
-   If you only want to target a specific html element by tag and not target all 
-   the elements with that tag you can use things like nth child and child selction 
+
+   If you only want to target a specific html element by tag and not target all
+   the elements with that tag you can use things like nth child and child selction
    using >
-   
-   A lot of the HTML ids and classes are specified in the UI of the shiny 
+
+   A lot of the HTML ids and classes are specified in the UI of the shiny
    Or in the external HTML files
-   
+
    I did most of the modifications in the browser using the web developer tools
-   and then copying and pasting the css changes into this file. 
-   More about web development tools : https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools  
-   
+   and then copying and pasting the css changes into this file.
+   More about web development tools : https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools
+
    I haven't documented all the CSS in this fill, because modifications are
    probably easier to make in the browser */
 
@@ -27,14 +27,15 @@
 /* .navbar refers to the top navigation bar by CSS class */
 
 .navbar-default {
-  background-color: #07294C;
+ /* background-color: #07294C; */
+  background-color: #ced2dc;
   margin-left: 30px;
   margin-right: 18px;
   border-top-left-radius: 15px;
   margin-top: 10px;
   margin-bottom: 0;
   border-top-right-radius: 15px;
-  
+
   font-size: 20px;
 }
 
@@ -45,21 +46,42 @@
 
 .navbar-brand {
   font-weight: bold;
-  font-size: 25px;
+  /* font-size: 25px; */
+  font-size: 32px;
+  margin-left: 0;
+}
+
+
+
+
+.navbar-header {
+  background-color: #07294C;
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  text-align: center;
 }
 
 
 .navbar > div:nth-child(1) {
 
-    margin-right: 10px;
-    margin-left: 15px;
-    margin-top: 10px;
-    
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-top: 0px;
+
+
     padding-right: 0px;
-    
+
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+
+
+     padding-left: 0px;
 }
+
 
 
 /* This specifies the color we see when we hover over the text in the navigation
@@ -71,12 +93,14 @@
 
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-  color: #07294C;
+   /* color: #07294C; */
+  color: white;
   border-radius: 15px;
 }
 
 .navbar-default .navbar-nav > li > a {
   color: white;
+  background-color: #666666;
 }
 
 
@@ -85,6 +109,26 @@
 
 li.active {
   margin-bottom: 10px;
+  background-color: #07294C;
+}
+
+
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    border-radius: 15px;
+  }
+  .navbar-nav > li {
+    border-radius: 15px;
+    font-weight: bold;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .col-sm-5 {
+    padding-right: 0;
+  }
 }
 
 
@@ -92,8 +136,41 @@ li.active {
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
     color: white;
+     width: 100%;
   }
 }
+
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+  /* background-color: #e7e7e7; */
+  background-color: #07294C;
+  border-radius: 15px;
+}
+
+
+.nav {
+  /* outline: 1px dotted red !important; */
+  background-color: #eff0f3;
+  width: 100%;
+   padding-top: 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+
+.nav > li:nth-child(5) > a:nth-child(1) {
+  position: left;
+  float: left;
+}
+
+.nav > li > a {
+  border-radius: 15px;
+}
+
+.nav > li {
+  margin-left: 15px;
+}
+
 
 
 
@@ -134,21 +211,23 @@ p {
 
 .intro-text {
   background-color:#EFF0F3;
-  
+
   padding-left:15px;
   padding-right: 15px;
   padding-top:5px;
   padding-bottom:10px;
-  
+
   border-bottom-left-radius:15px;
   border-bottom-right-radius:15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 
   margin-right: 3px;
   margin-left:15px;
   margin-bottom: 0;
-  
+
   font-size: 20px;
-  
+
 }
 
 
@@ -156,11 +235,14 @@ p {
   font-family: Segoe UI, wf_segoe-ui_normal, helvetica, arial, sans-serif;
   background-color: white;
   padding: 15px;
-  
+
   margin-right: -12px;
   margin-bottom: 60px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 
@@ -176,7 +258,7 @@ body {
   background-color: #EFF0F3;
   padding: 10px;
   border-radius: 15px;
-  padding-right: 10px;
+  padding-right: 5px;
 }
 
 
@@ -232,6 +314,16 @@ div.col-sm-7:nth-child(3) {
   padding-right: 0;
 }
 
+.col-sm-7 {
+  padding-right: 15px;
+  padding-left: 10px;
+}
+
+
+#report_class_plot_column {
+  padding-right: 10px;
+}
+
 
 
 #radio-button-well {
@@ -240,17 +332,17 @@ div.col-sm-7:nth-child(3) {
   padding-top: 0;
   border-radius: 15px;
   width: fit-content;
-  padding-right: 100px;
+  padding-right: 10px;
   display: inline-block;
   margin-top: 0;
   height: fit-content;
-  
-  
+
+
   background-color: white;
   color: black;
   border-color: black;
-  
-  
+
+
 }
 
 
@@ -290,24 +382,23 @@ span.irs:nth-child(2) {
   background-color: #EFF0F3;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  
+
   margin-top: 0;
 }
 
-/* data tables is tricky because it calls to a javascript API and the API 
+/* data tables is tricky because it calls to a javascript API and the API
    will also make changes to the CSS... apparently sometimes after render
-   
+
    Tne !important modifier is needed to force some of the CSS styles
    A better way to do this is probably to write Javascript code to pass
    to the API inside of the shiny server #Goals */
-   
+
 #DataTables_Table_0 {
   background-color: white;
   table-layout: fixed;
   width: 100% !important;
   height: 100% !important;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-radius: 15px;
   font-size: 15px;
 }
 
@@ -316,7 +407,7 @@ span.irs:nth-child(2) {
 #DataTables_Table_0 th{
   width: auto !important;
   white-space: normal;
-  
+
   /* this cuts off overflowing text with three dots...at least in theory lol */
   text-overflow: ellipsis;
   overflow: hidden;
@@ -350,10 +441,10 @@ span.irs:nth-child(2) {
 
   height: 100%;
   width: 100%;
-  
+
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  
+
 }
 
 
@@ -389,18 +480,18 @@ div.leaflet-pane:nth-child(6) {
 div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-output.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
   font-family: Segoe UI, wf_segoe-ui_normal, helvetica, arial, sans-serif;
 
-  
+
 }
 
-/* this targes all the tool tips by class 
+/* this targes all the tool tips by class
    z-index refers to the position on the z plane,
    so like it defines what appears on top, 9999 forces the tooltip
    to display on top of everything else on the page */
 
 .tooltip {
- 
- z-index: 9999 
-  
+
+ z-index: 9999
+
 }
 
 #DataTables_Table_1 {
@@ -411,35 +502,44 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
 
 
 #choice_selector {
- 
+
+
+  /* background-color: #e7e7e7; */
+  /* margin-bottom: 20px; */
+  background-color: #EFF0F3;
+  margin-bottom: 10px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
   display: flex;
   flex-direction: row;
   padding-top: 10px;
   padding-left: 30px;
-  background-color: #e7e7e7;
   margin-left: 15px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  margin-bottom: 20px;
 }
 
 
 #page-3 > div:nth-child(1) {
- 
+
   margin-right: 3px;
 }
 
 
-#size_choice-container {
+.map_choice-container {
 
-  margin-right: 45px;
+  /* margin-right: 35px; */
+   margin-right: 25px;
+}
+
+li.active > a:nth-child(1) {
+  display: inline-block;
 }
 
 
-#color_choice-container {
 
-  margin-right: 45px;
-}
+
 
 
 .dropdown-toggle {
@@ -464,21 +564,37 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
 }
 
 
+
+@media (min-width: 768px) {
+  .col-sm-9 {
+    /* width: 75%; */
+    width: 82%;
+    margin-right: 0px;
+    padding-right: 0px;
+  }
+}
+
+
 #page-3 > div:nth-child(2) {
 
-  margin-right: 3px;
+  margin-right: -15px;
 }
 
 
 .time-stamp {
-  margin-left: auto; 
   margin-right: 10px;
   max-width: max-content;
+
+    /* margin-left: auto; */
+  /* display: inline; */
+  margin-left: 145px;
+  float: right;
+  margin-top: 10px;
 }
 
 /* from legend allignment */
 
-/* This forces the leaflet legend to allign the text and 
+/* This forces the leaflet legend to allign the text and
    colorful squares correctly to the left, some bug in the r package
    randomly caused them to become unalligned half way through this project */
 
@@ -565,10 +681,10 @@ div.row:nth-child(8) > div:nth-child(1) {
 }
 
 #bigfoot-shadow-img-container {
-  
+
   display: flex;
   justify-content: center;
-  
+
 }
 
 
@@ -600,7 +716,7 @@ div.row:nth-child(8) > div:nth-child(1) {
 
 
 .external-iframe {
- 
+
   width: 100.5%;
   height: 1437.50px;
   margin-left: auto;
@@ -626,15 +742,16 @@ div.row:nth-child(8) > div:nth-child(1) {
 
   display: inline: block;
   display: inline-block;
-  margin-left: auto;
+ /* margin-left: auto; */
   margin-bottom: 10px;
+  margin-left: 40px;
 }
 
 
 #report_missing {
 
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   border-radius: 15px;
   padding-top: 2.5px;
@@ -645,7 +762,7 @@ div.row:nth-child(8) > div:nth-child(1) {
 #weekday_missing {
 
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   border-radius: 15px;
   padding-top: 2.5px;
@@ -655,7 +772,7 @@ div.row:nth-child(8) > div:nth-child(1) {
 #time_missing {
 
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   padding-left: ;
   text-align: center;
   border-radius: 15px;
@@ -676,6 +793,8 @@ width: fit-content;
 
   width: 33.75%;
   padding-right: 0px;
+
+  padding-left: 10px;
 }
 
 
@@ -702,30 +821,25 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   display: block;
   float: right;
   margin-left: auto;
-  
+
 }
 
 #map-well {
-  
+
   width: 100%;
-
-
   background-color: #EFF0F3;
-
-
   display: inherit;
   padding-left: 15px;
   padding-top: 18px;
   padding-right: 20px;
-  padding-bottom: 20px;
-  
-  
   position: sticky;
   top: 0;
-
   margin-right: 15px;
-  margin-bottom: 20px;
-  
+
+
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
@@ -741,8 +855,9 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   padding-top: 7px;
   padding-bottom: 5px;
   padding-right: 30px;
-  margin-bottom: 20px;
-  
+    /* margin-bottom: 20px; */
+  margin-bottom: 10px;
+
 }
 
 
@@ -779,20 +894,21 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 
 #dashboard-content-page-one > div:nth-child(1) {
 
-  margin-top: 20px;
+ /* margin-top: 20px; */
+    margin-top: 10px;
   margin-right: -25px;
 }
 
-/* this is the class for the titles above the graphics (plots and tables) 
+/* this is the class for the titles above the graphics (plots and tables)
    on the second page */
-   
+
 .graphic-title {
   background-color: #07294C;
   color: white;
   width: 100%;
   display: inline-block;
   text-align: center;
-  font-size: 25px;
+  font-size: 23px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   padding-top: 5px;
@@ -801,7 +917,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 
 #three-plots-container {
 
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .missing-text {
@@ -810,7 +926,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   display: inline-block;
   width: 100%;
   border-radius: 15px;
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -831,7 +947,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   padding: 10px;
   display: inline-block;
   width: 100%;
-  margin-top: 15px;
+  margin-top: 10px;
   border-radius: 15px;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -851,7 +967,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 /* leaflet popup labels */
 
 #popup-title {
-  
+
   text-align:center;
   background-color:#144361;
   color:white;
@@ -860,35 +976,47 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   border-width:5px;
   padding:7.5px;
   border-style:solid;
-  
-  
+
+
 }
 
 
 #first-popbox {
-  
+
   background-color:#6298BC;
   border-radius:15px;
   padding:7.5px;
   margin-top:0;
-  
+
 }
 
 #second-popbox {
-  
+
   background-color:#D9EAF7;
   border-radius:15px;
   padding:7.5px;
   margin-top:10px;
-  
+
 }
 
-#popbox-report-text{ 
-  
+#popbox-report-text{
+
   text-align:center;
   display:inline;
   left:50%;
   right:50%;
   width:100%;
-  
+
 }
+
+
+.heading-container {
+  background-color: #07294c;
+  color: white;
+  margin-top: 10px;
+  margin-left: 15px;
+  text-align: center;
+  font-size: 32px;
+  padding: 5px;
+}
+
