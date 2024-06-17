@@ -252,8 +252,11 @@ ggplot_standard_theme <- theme(axis.line.y = element_blank(),
 #🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒🦒
 
 # Navbarpage defines a page with multiple tabs
-ui <- navbarPage( # This is the title of the overall webpage:
-  "Bigfoot Sightings in Washington State",
+ui <- navbarPage(
+  "BIGFOOT SIGHTINGS IN WASHINGTON STATE DASHBOARD",
+
+  # This is the title of the overall webpage:
+  #"Bigfoot Sightings in Washington State",
 
 
   # This enables the shinyjs library inside the app
@@ -272,10 +275,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
 
   # /* CSS comments look like this */
 
-  tags$link(rel = "stylesheet", type = "text/css", href = "css/bigfoot_dashboard_styles.css"),
-
-
-
+ tags$link(rel = "stylesheet", type = "text/css", href = "css/bigfoot_dashboard_styles.css"),
 
   ## Javascript scripts ----------------------------------------------------------
 
@@ -284,10 +284,8 @@ ui <- navbarPage( # This is the title of the overall webpage:
   # to add a image to the
   # right side of the navigation bar
   # // Javascript comments look like this or like CSS comments
-  tags$script(src="/JavaScript/add_header_image.js"),
-
-
-
+  # tags$script(src="/JavaScript/add_header_image.js"),
+  # tags$script(src="/JavaScript/remove_dots.js"),
 
 
   ## First page-------------------------------------------------------------------
@@ -305,7 +303,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
 
 
             # this defines a row
-        fluidRow(
+        fluidRow(id="surveillance-notes-box",
 
 
 
@@ -317,9 +315,10 @@ ui <- navbarPage( # This is the title of the overall webpage:
           "Bigfoot surveillance data are updated on the second tuesday after every full moon in February, or when we feel like it 😅. We make every effort to guarentee the accuracy of all the data that is entered into our data systems, but because we rely on the public to report sightings, we can't guarantee that every reported sighting wasn't actually a yeti or an abominable snowman. To report a sighting please send us an email!",
           tags$br(),
           tags$p(class="time-stamp",
-                 tags$strong("Last Updated: December 23, 2023 10:00 AM")))
+                 tags$strong("Last Updated: March 6th, 2024 10:00 AM")))
 
-                       ),  # end of first row
+        ),
+        # end of first row
 
      tags$div(id="dashboard-content-page-one",
 
@@ -537,8 +536,10 @@ ui <- navbarPage( # This is the title of the overall webpage:
       fluidRow(
         tags$div(class = "intro-text",
            HTML("The Bigfoot Field Researchers Organization assigns reports to one of three categories. For more information on the report classification system, please refer to their <a href='https://www.bfro.net/gdb/classify.asp#classification'>website</a>.<p id='classification-descriptions'><strong>Class A</strong>: A direct report where alternative explanations can be eliminated with high certainty<br><strong>Class B</strong>: A direct report where alternative explanations are more difficult to eliminate<br><strong>Class C</strong>: A secondhand report of a sighting.</p>"),
-           tags$p(class = "time-stamp",
-           tags$strong("Last Updated: December 23, 2023 10:00 AM")))),
+          # tags$p(class = "time-stamp",
+          # tags$strong("Last Updated: December 23, 2023 10:00 AM"))
+
+        )),
 
         tags$div(id = "three-plots-container",
 
@@ -646,59 +647,7 @@ ui <- navbarPage( # This is the title of the overall webpage:
 
       fluidRow(
          column(width = 12,
-                id = "choice_selector",
-
-
-
-  #### Size variable choices --------------------------------------------------
-
-            tags$span(class = "map_choice-container",
-               selectizeInput("size_var", "Select a Size Variable",
-                              choices = c("Length of the Report",
-                                          "None"),
-                              selected ="None")),
-
-
-
-  #### Color variable choices --------------------------------------------------
-
-            tags$span(class = "map_choice-container",
-               selectizeInput("color_var", "Select a Color Variable",
-                              choices = c("Report Classification",
-                                           "Season",
-                                           "Day of the Week",
-                                           "None"),
-                              selected = "None")),
-
-
-
-  #### filtering variable choices --------------------------------------------------
-            tags$span(id = "map_choice-container",
-                pickerInput(
-                  inputId = "filtering_criteria",
-                  label = "Choose Filtering Criteria",
-                  choices = list(
-                    `Report Classification` = levels(bigfoot_points$classification),
-                    Season = levels(bigfoot_points$season),
-                    `Day of the week` = levels(bigfoot_points$report_weekday),
-                    County = unique(bigfoot_points$county)),
-
-                  selected = c(  levels(bigfoot_points$classification),
-                                 levels(bigfoot_points$season),
-                                 unique(bigfoot_points$county),
-                                 levels(bigfoot_points$report_weekday)),
-
-                   options = list(`selected-text-format`= "static",
-                                  title = "Filters",
-                                  `actions-box` = TRUE),
-
-                                  multiple = TRUE)),
-
-
-
-    ### point map explanatory notes --------------------------------------------
-
-            tags$html(
+                id = "choice_selector",tags$html(
               HTML("<span
                       id='point-map-notes'
                       class='user-notes'
@@ -719,7 +668,52 @@ ui <- navbarPage( # This is the title of the overall webpage:
                          <strong>Have fun!!!</strong>")))),
 
       fluidRow(
-        column(12,
+        column(id= "map-dropdowns",
+               2,
+
+                tags$span(class = "map_choice-container",
+                          selectizeInput("size_var", "Select a Size Variable",
+                                         choices = c("Length of the Report",
+                                                     "None"),
+                                         selected ="None")),
+
+
+
+                #### Color variable choices --------------------------------------------------
+
+                tags$span(class = "map_choice-container",
+                          selectizeInput("color_var", "Select a Color Variable",
+                                         choices = c("Report Classification",
+                                                     "Season",
+                                                     "Day of the Week",
+                                                     "None"),
+                                         selected = "None")),
+
+
+
+                #### filtering variable choices --------------------------------------------------
+                tags$span(id = "map_choice-container",
+                          pickerInput(
+                            inputId = "filtering_criteria",
+                            label = "Choose Filtering Criteria",
+                            choices = list(
+                              `Report Classification` = levels(bigfoot_points$classification),
+                              Season = levels(bigfoot_points$season),
+                              `Day of the week` = levels(bigfoot_points$report_weekday),
+                              County = unique(bigfoot_points$county)),
+
+                            selected = c(  levels(bigfoot_points$classification),
+                                           levels(bigfoot_points$season),
+                                           unique(bigfoot_points$county),
+                                           levels(bigfoot_points$report_weekday)),
+
+                            options = list(`selected-text-format`= "static",
+                                           title = "Filters",
+                                           `actions-box` = TRUE),
+
+                            multiple = TRUE))
+                ),
+        column(9,
 
 
 
@@ -762,10 +756,19 @@ ui <- navbarPage( # This is the title of the overall webpage:
 
  ## Website footer -------------------------------------------------------------
 
-footer = includeHTML("www/html/DOH_site_footer.html")
+footer = includeHTML("www/html/DOH_site_footer.html"),
+
+# these scripts are run at the end
+# bc they need to run AFTER the page has finished rendered
+# one script removes weird random dots that appear
+# and the other moves the locaiton of the time stamp
+
+tags$script(src="move_timestamp.js"),
+#tags$script(src="/JavaScript/remove_dots.js")
+#tags$script(src="/JavaScript/remove_dot5.js")
+
 
 )
-
 
 
 
@@ -826,7 +829,7 @@ server <- function(input, output, session) {
         opacity = 1,
 
         # border lines color
-        color = "white",
+        color = "#595959",
 
         # make the border lines dashed with size three dashes
         dashArray = "1",
@@ -901,7 +904,7 @@ server <- function(input, output, session) {
 
   # name space is important because Shiny has a renderDT function too
   output$county_sightings_table <- DT::renderDT( Bigfoot_county_table,
-                                                 options = list( pageLength = 9,
+                                                 options = list( pageLength = 8,
                                                                  searching = FALSE,
                                                                  # this tells data.table which extra things
                                                                  # like search bars and stuff we want
