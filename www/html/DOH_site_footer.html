@@ -10,11 +10,13 @@
 
 
 <!-- This creates the footer -->
-<footer class="footer">
+<footer class="footer" class="container-fluid">
 
 <!-- This is the first column inside the footer. It's where we put the bigfoot
       immage -->
-<div id="footer-first-column">
+<div class="container-fluid">
+  
+<div id="footer-first-column" class="col-sm-4">
    <div id="bigfoot-shadow-img-container">
      <!-- This is the giant outline of bigfoot on the left, it's
           inside a container, so that we can modify CSS attributes of the image's
@@ -24,7 +26,7 @@
  </div>
 
  <!-- This is the second column  with the twitter feed-->
- <div id="footer-second-column">
+ <div id="footer-second-column" class="col-sm-4">
 
 
  <!-- here's a button that removes the footer and a bunch of other stuff to
@@ -62,7 +64,7 @@
      Stack over flow answer: https://stackoverflow.com/a/59895346   -->
 
 
-<div id="contact-form">
+<div id="contact-form" class="col-sm-4">
 
   <!-- Header -->
   <h1>Contact us!</h1>
@@ -83,7 +85,7 @@
        using fluidrow(column(SHINY CODE FOR INPUT FORM))   -->
   <div class="row">
     <div class="col-sm-4" align="left">
-      <div class="form-group shiny-input-container" style="width:400px;">
+      <div class="form-group shiny-input-container">
         <label class="control-label" id="users_message-label" for="users_message">Send us an email</label>
         <input id="users_message" type="text" class="form-control" value="" placeholder="Tell us what you think!"/>
       </div>
@@ -111,6 +113,7 @@
   </div>
 </div>
 
+</div>
 
 
 </footer>

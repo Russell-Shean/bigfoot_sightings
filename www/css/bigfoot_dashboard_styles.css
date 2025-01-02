@@ -173,6 +173,9 @@ li.active {
 
 .nav > li {
   margin-left: 15px;
+  border-radius: 15px;
+  margin-top: 5px;
+  margin-right: 15px;
 }
 
 
@@ -596,7 +599,7 @@ border-style: solid;
 
     /* margin-left: auto; */
   /* display: inline; */
-  margin-left: 145px;
+  margin-left: 15px;
   float: right;
   margin-top: 10px;
 }
@@ -619,12 +622,16 @@ footer{
     color:green;
     justify-content: space-between;
     margin-top: 40px;
+     /*
     padding-left: 100px;
     padding-right: 100px;
+    */
     padding-top: 10px;
     display: flex;
     background-color: #581B51;
+    /*
     height: 425px;
+    */
     margin-bottom: 0;
 }
 
@@ -958,8 +965,6 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   width: 100%;
   margin-top: 10px;
   border-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 
 #classification-descriptions {
