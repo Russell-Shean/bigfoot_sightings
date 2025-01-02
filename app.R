@@ -1485,7 +1485,7 @@ server <- function(input, output, session) {
                    color = "#595959") %>%
 
       # this is the style guide recommended grey
-      addProviderTiles("Esri.WorldGrayCanvas") %>%
+      addProviderTiles("Esri.WorldImagery") %>%
 
       # this was the fun trees and stuff version
      # addProviderTiles(providers$Stadia.StamenTerrain)   %>%

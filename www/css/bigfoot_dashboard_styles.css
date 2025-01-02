@@ -31,12 +31,17 @@
  /* background-color: #07294C; */
   background-color: #ced2dc;
   border-color: #ced2dc;
-  margin-left: 30px;
+  margin-left: 15px;
   margin-right: 18px;
+  
+  /*
   border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
+  
+  */
   margin-top: 10px;
   margin-bottom: 0;
-  border-top-right-radius: 15px;
 
   font-size: 20px;
 }
@@ -52,7 +57,10 @@
   font-weight: bold;
   /* font-size: 25px; */
   font-size: 32px;
+ /* 
   margin-left: 0;
+  */
+  margin-left: 1px;
 }
 
 
@@ -61,12 +69,13 @@
 .navbar-header {
   background-color: #07294C;
   width: 100%;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+
   margin-bottom: 10px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-radius: 15px;
+
   text-align: center;
+  
+  margin-left: 1px;
 }
 
 
@@ -79,13 +88,27 @@
 
     padding-right: 0px;
 
+/*
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    
+    */
 
 
      padding-left: 0px;
 }
 
+
+.navbar {
+margin-left: 15px;
+}
+
+/* This overwrites a bootstrap default to let us set the navbar to have a 1px margin
+   for the mobile version too    */ 
+   
+.container-fluid > .navbar-collapse, .container-fluid > .navbar-header, .container > .navbar-collapse, .container > .navbar-header {
+margin-left: 0px;
+}
 
 
 /* This specifies the color we see when we hover over the text in the navigation
@@ -159,6 +182,8 @@ li.active {
    padding-top: 10px;
   border-radius: 15px;
   margin-bottom: 10px;
+  margin-left: 1px;
+  
 }
 
 
@@ -201,6 +226,7 @@ p {
 
 #page-one {
   background-color: #CED2DC;
+  padding-left: 0px;
   }
 
 
@@ -223,11 +249,16 @@ p {
   padding-right: 15px;
   padding-top:5px;
   padding-bottom:10px;
+  
+  border-radius: 15px;
 
+/*
   border-bottom-left-radius:15px;
   border-bottom-right-radius:15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  
+  */
 
   margin-right: 3px;
   margin-left:15px;
@@ -328,7 +359,12 @@ div.col-sm-7:nth-child(3) {
 
 
 #report_class_plot_column {
+  /*
   padding-right: 10px;
+  */
+  padding-right: 0px;
+  
+  margin-top: 10px;
 }
 
 
@@ -438,8 +474,19 @@ span.irs:nth-child(2) {
 
 
 #season_table_column {
+  
+ /* 
   padding: 0;
+  
   width: 32.5%;
+  
+  
+  
+  margin-left: 15px;
+  */
+  padding-right: 0px;
+  
+  margin-top: 10px;
 }
 
 
@@ -470,6 +517,20 @@ span.irs:nth-child(2) {
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
+
+#page-four {
+padding-left: 0px;
+}
+
+#page-two {
+padding-left: 0px;
+}
+
+/*    not for now
+#page-three {
+padding-left: 0px;
+}
+*/ 
 
 
 #shiny-page-intro {
@@ -515,16 +576,15 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
   /* margin-bottom: 20px; */
   background-color: #EFF0F3;
   margin-bottom: 10px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-radius: 15px;
+
 
   display: flex;
   flex-direction: row;
   padding-top: 10px;
   padding-left: 30px;
   margin-left: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+
 }
 
 
@@ -807,19 +867,28 @@ width: fit-content;
 /* from take 5 */
 #weekday_plot_column {
 
+/*
   width: 33.75%;
+  
+  */
   padding-right: 0px;
+  
+  padding-top: 10px;
 
+/*
   padding-left: 10px;
+  
+  */
 }
 
-
+/*
 @media (min-width: 768px) {
   .col-sm-4 {
 
     width: 33.749%;
   }
 }
+*/
 
 div.col-sm-2:nth-child(2) {
 
@@ -931,10 +1000,13 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   padding-bottom: 5px;
 }
 
+/*
 #three-plots-container {
 
   margin-top: 10px;
 }
+
+*/
 
 .missing-text {
   background-color: #EFF0F3;
