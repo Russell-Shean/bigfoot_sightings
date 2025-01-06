@@ -333,6 +333,8 @@ ui <- navbarPage(
 
 
               column(
+                
+                id = "map-column",
 
               # this is the width of the fluid column
               # width = 5/12 of the page's width
@@ -413,7 +415,8 @@ ui <- navbarPage(
                                   ),
 
               # the is the column that the sightings by year curve chart will go inside
-              column(width = 7,
+              column(id= "sightings-column",
+                     width = 7,
 
 
 
@@ -1485,7 +1488,7 @@ server <- function(input, output, session) {
                    color = "#595959") %>%
 
       # this is the style guide recommended grey
-      addProviderTiles("Esri.WorldGrayCanvas") %>%
+      addProviderTiles("Esri.WorldImagery") %>%
 
       # this was the fun trees and stuff version
      # addProviderTiles(providers$Stadia.StamenTerrain)   %>%
