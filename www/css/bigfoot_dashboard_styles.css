@@ -61,6 +61,14 @@
   margin-left: 0;
   */
   margin-left: 1px;
+  
+  
+}
+
+
+.navbar-brand {
+float: none;
+
 }
 
 
@@ -76,6 +84,11 @@
   text-align: center;
   
   margin-left: 1px;
+  
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+
 }
 
 
@@ -583,15 +596,11 @@ div#county_sightings_map.leaflet.html-widget.html-widget-output.shiny-bound-outp
   flex-direction: row;
   padding-top: 10px;
   padding-left: 30px;
-  margin-left: 15px;
 
 }
 
 
-#page-3 > div:nth-child(1) {
 
-  margin-right: 3px;
-}
 
 
 .map_choice-container {
@@ -631,7 +640,10 @@ border-style: solid;
   background-color: #e7e7e7;
   border-radius: 15px;
   padding: 10px;
+  
+  /*
   margin-left: 15px;
+  */
   margin-bottom: 20px;
 }
 
@@ -922,7 +934,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   margin-right: 15px;
 
 
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   margin-bottom: 10px;
 
   border-bottom-right-radius: 15px;
@@ -979,9 +991,16 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 
 #dashboard-content-page-one > div:nth-child(1) {
 
- /* margin-top: 20px; */
-    margin-top: 10px;
   margin-right: -25px;
+}
+
+
+#map-column {
+margin-top: 10px;
+}
+
+#sightings-column {
+margin-top: 10px;
 }
 
 /* this is the class for the titles above the graphics (plots and tables)
@@ -1105,4 +1124,6 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
   font-size: 32px;
   padding: 5px;
 }
+
+
 
