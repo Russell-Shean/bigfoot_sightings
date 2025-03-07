@@ -40,20 +40,33 @@ elem7.remove();
 elem2.remove();
 elem1.remove();
 
+
+
+// Here's a function that removes the footer's second row
+function remove_footer_2_row() {
+  
+  // Remove the second row of the footer which is not part of the footer div
+  document.querySelector("#footer-second-row").remove();
+  
+}
+
+
+
+
 // here's a function that removes a bunch of elements to make everything fit
 // in a single screen without scrolling up or down
 
 // define the function that removes everything
 
-function RemoveStuff() {
+function condense_dashboard() {
 
 // Remove the intro text from the first page
-document.querySelector("#surveillance-notes-box").remove()
+document.querySelector("#surveillance-notes-box").remove();
 
 
 // remove the classifications description box from the second
 // page intro
-document.querySelector("#classification-descriptions").remove()
+document.querySelector("#classification-descriptions").remove();
 
 
 
@@ -103,7 +116,7 @@ instructions.style.borderRadius = "15px";
 MapDropDowns.style.height = "560px" ;
 
 // remove the orphaned row that used to contain the instructions
-document.querySelector("#choice_selector").remove()
+document.querySelector("#choice_selector").remove();
 
 
 // increase top margin on instructions so they appear anchored to the bottom
@@ -114,26 +127,26 @@ instructions.style.marginTop = "40px";
 
 // 4th page
 // remove other sources of data section
-document.querySelector(".data-definitions-box > div:nth-child(4)").remove()
+document.querySelector(".data-definitions-box > div:nth-child(4)").remove();
 
 
 
 // remove why are we looking at bigfeets section
-document.querySelector(".data-definitions-box > div:nth-child(6)").remove()
+document.querySelector(".data-definitions-box > div:nth-child(6)").remove();
 
 
 // remove can you share code section
-document.querySelector(".data-definitions-box > div:nth-child(7)").remove()
+document.querySelector(".data-definitions-box > div:nth-child(7)").remove();
 
 // remove extra line breaks
-document.querySelector(".data-definitions-box > br:nth-child(5)").remove()
+document.querySelector(".data-definitions-box > br:nth-child(5)").remove();
 
 // run twice to remove both
-document.querySelector(".data-definitions-box > br:nth-child(5)").remove()
+document.querySelector(".data-definitions-box > br:nth-child(5)").remove();
 
 
 // remove extra sighting conditions
-document.querySelector(".data-definitions-box > div:nth-child(2) > ul:nth-child(3) > li:nth-child(3)").remove()
+document.querySelector(".data-definitions-box > div:nth-child(2) > ul:nth-child(3) > li:nth-child(3)").remove();
 
 
 // Remove the parent element for the footer from all pages

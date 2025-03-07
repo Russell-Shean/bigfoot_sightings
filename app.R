@@ -760,14 +760,14 @@ ui <- navbarPage(
 
  ## Website footer -------------------------------------------------------------
 
-footer = includeHTML("www/html/DOH_site_footer.html"),
+footer = includeHTML("www/html/site_footer.html"),
 
 # these scripts are run at the end
 # bc they need to run AFTER the page has finished rendered
 # one script removes weird random dots that appear
 # and the other moves the locaiton of the time stamp
 
-tags$script(src="move_timestamp.js"),
+tags$script(src="move_remove_functions.js"),
 #tags$script(src="/JavaScript/remove_dots.js")
 #tags$script(src="/JavaScript/remove_dot5.js")
 
