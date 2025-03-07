@@ -1,0 +1,39 @@
+name: Deploy to shinyapps.io
+on:
+  push:
+    branches:
+      - main
+      
+    paths:
+      - R/**
+      - www/**
+      - app.R
+      - data/**
+
+  # run on request (via button in actions menu)
+  workflow_dispatch:
+      
+jobs:
+  deploy:
+    name: Deploy to shinyapps
+
+    # allow skipping deployment for commits containing '[automated]' or '[no-deploy]' in the commit message
+    if: "!contains(github.event.head_commit.message, '[automated]') && !contains(github.event.head_commit.message, '[no-deploy]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Russell-Shean/shinyapps-deploy-sf-depends@v3
+        with:
+          # account and application name (https://<accountName>.shinyapps.io/<appName>)
+          appName: bigfoot_sightings 
+          accountName: russellshean
+
+          # path to app
+          # appDir: inst/route-explorer-app
+
+          # token and secret obtained from https://www.shinyapps.io/admin/#/tokens
+          accountToken: ${{ secrets.SHINYAPPS_TOKEN }}
+          accountSecret: ${{ secrets.SHINYAPPS_SECRET }}
+
+          # force an update of existing app
+          forceUpdate: true
