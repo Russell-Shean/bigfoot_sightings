@@ -369,7 +369,7 @@ ui <- navbarPage(
                         # This defines part of the UI in raw HTML
 
                          tags$html(
-                           HTML("<span>
+                           HTML("<span class='user-notes'>
                                    <strong>Hover</strong>
                                    over a county to see more info
                                 </span>"))
@@ -440,7 +440,7 @@ ui <- navbarPage(
 
 
                    tags$html(
-                     HTML("<span>
+                     HTML("<span class='user-notes'>
                             <strong>Select</strong>
                           a county to see sightings per week for that county
                              <br>
@@ -669,7 +669,7 @@ ui <- navbarPage(
           how you want to filter the sightings (at least one per subcategory!)
                          <br>
 
-                         <strong>Have fun!!!</strong>")))),
+                         <strong>Have fun!!!</strong></span>")))),
 
       fluidRow(
         column(id= "map-dropdowns",

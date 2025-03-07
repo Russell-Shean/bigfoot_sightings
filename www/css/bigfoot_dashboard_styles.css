@@ -25,6 +25,18 @@
    probably easier to make in the browser */
 
 
+
+
+/* Remove user notes elements when the screen size is too small */
+@media(max-width: 1320px) {
+  .user-notes {
+    display: none;
+  }
+
+}
+
+
+
 /* .navbar refers to the top navigation bar by CSS class */
 
 .navbar-default {
@@ -915,7 +927,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 #map-well > span:nth-child(2) {
 
   margin-top: 7px;
-  display: block;
+ /* display: block; */
   float: right;
   margin-left: auto;
 
@@ -971,7 +983,7 @@ div.col-sm-2:nth-child(2) > span:nth-child(1) {
 #epi-well > span:nth-child(2) {
 
   margin-top: 10px;
-  display: block;
+  /*display: block;*/
   margin-left: auto;
   float: right;
 }
