@@ -524,7 +524,7 @@ ui <- navbarPage(
 
 
   ## Second page -----------------------------------------------------------------
-  tabPanel("Bigfeets Characteristics",
+  tabPanel("Report Details",
     fluidPage(id = "page-two",
 
                      # this defines the text ribbon at the top of the second page:
@@ -640,7 +640,7 @@ ui <- navbarPage(
 
   ## Third page: Point map -----------------------------------------------------------------
 
-  tabPanel("Sightings Point Map",
+  tabPanel("Sightings Map",
 
 
     fluidPage(id = "page-3",
@@ -749,7 +749,7 @@ ui <- navbarPage(
   # written entirely in html using Html tags created by r
   # It is stored in the app's www/ directory
 
-  tabPanel("Notes About Our Data",
+  tabPanel("Data Notes",
 
            # <!-- HTML comments look like this -->
            includeHTML("www/html/page4.html")
