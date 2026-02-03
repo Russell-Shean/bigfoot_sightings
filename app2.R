@@ -1,70 +1,4 @@
 
-# =======================================================================
-
-# Description: This shiny dashboard contains data about REAL Bigfoot sightings.
-#              We're using this project to test out the technology and didn't
-#              want to use a real health condition while we're testing.  ~end~
-
-
-# =======================================================================
-
-
-#
-#🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖
-#🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖🦖
-#
-
-
-
-# Notes about how this shiny is organized:--------------------------------------
-#
-#  Shinies have two basic parts that have to be defined separately:
-#  A user interface (ui) and a server, this somewhat restricts where in the script
-#  some code has to be run.
-#
-# Therefore the code will have the following sections:
-#
-#     1. Pre-processing
-#            ( this is where libraries, data and functions are loaded
-#                + some pre-processing of the data )
-#
-#     2. User interface (ui)
-#            ( this is where the webpage that the user sees is defined )
-#            ( The first section loads external CSS and javascript files )
-#            ( Next, each page of the shiny is defined using R code)
-#            ( The R code generates HTML, using shiny methods + tags$  )
-#            ( to see the page in HTML call the UI object )
-#            ( The footer is written entire in HTML and loads from an external file )
-#            ( 😱 )
-
-#    3. Server
-#            ( this is where re-activity is defined and implemented)
-#            ( because a lot of the data processing decisions change with user)
-#            ( input, a lot of the data processing steps are run in the server)
-#            ( instead of in the pre-processing section )
-#            ( this is also where graphs and tables are defined.)
-#            ( Within the server, the re-activity for each html element has to )
-#            ( defined separately within a reactive variable)
-#            ( I will try to work on defining things outside the reactive variables)
-#            ( and instead call an intermediate variable from within the reactive variable)
-#            ( I'm not sure that last sentence made sense lol)
-#            ( within the server, reactive variables can be defined in any order,)
-#            ( so I will define them in the same order as the UI)
-#
-#
-#  Within each section I try to arrange things in the order recommended by the style guide
-#
-#
-#🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙
-#🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙🦙
-#
-
-
-
-# Section 1: Pre-processing!---------------------------------------------------
-#
-
-
 
 ## Load libraries -------------------------------------------------------------
 if(!require("pacman")){install.packages("pacman")}
@@ -663,27 +597,8 @@ ui <- navbarPage(
                               
                               
                               
-                              #### filtering variable choices --------------------------------------------------
-                              tags$span(id = "map_choice-container",
-                                        pickerInput(
-                                          inputId = "filtering_criteria",
-                                          label = "Choose Filtering Criteria",
-                                          choices = list(
-                                            `Report Classification` = levels(bigfoot_points$classification),
-                                            Season = levels(bigfoot_points$season),
-                                            `Day of the week` = levels(bigfoot_points$report_weekday),
-                                            County = unique(bigfoot_points$county)),
-                                          
-                                          selected = c(  levels(bigfoot_points$classification),
-                                                         levels(bigfoot_points$season),
-                                                         unique(bigfoot_points$county),
-                                                         levels(bigfoot_points$report_weekday)),
-                                          
-                                          options = list(`selected-text-format`= "static",
-                                                         title = "Filters",
-                                                         `actions-box` = TRUE),
-                                          
-                                          multiple = TRUE))
+                              filtering_criteria_UI("filtering_criteria")
+                            
                        ),
                        column(9,
                               
@@ -756,56 +671,7 @@ server <- function(input, output, session) {
 
   ## Point map part of the server-------------------------------------------------------
   
-  ### Define the filtered data---------------------------------------------------
-  # This is a reactive object that changes dynamically with user input
-  
-  filtered_feet <- reactive({
-    
-    # This filters bigfoot points by the filtering criteria selected
-    # in the dropdown list
-    bigfoot_points %>%
-      dplyr::filter(season %in% input$filtering_criteria,
-                    report_weekday %in% input$filtering_criteria,
-                    county %in% input$filtering_criteria,
-                    classification %in% input$filtering_criteria)
-    
-    
-  })
-  
-  
-  
-  
-  ### Define reactive labels---------------------------------------------------
-  # This uses the re actively filtered data
-  # to make labels for only the data points in the filtered dataset
-  # reactive_labels are a reactive object that listen to another reactive job
-  
-  reactive_labels <- reactive({
-    
-    
-    paste0(
-      "<p id='popup-title'><strong>",filtered_feet()$summary, "</strong></p>",
-      "<div id='first-popbox'>",
-      "<strong>Report Date: </strong>", format(as.Date(filtered_feet()$report_date2), "%B %d, %Y"),
-      "<br><strong>Report Classification: </strong>", filtered_feet()$classification,
-      "<br><strong>Length of Report: </strong>", filtered_feet()$report_length, " characters",
-      "<br><strong>Report Season: </strong>", filtered_feet()$season,
-      "<br><br><strong>County: </strong>", filtered_feet()$county,
-      "<br><strong>Nearest Town: </strong>", filtered_feet()$nearest_town,
-      "<br><strong>Environment: </strong>", filtered_feet()$environment,
-      "</div>",
-      "<div id='second-popbox'>",
-      "<p id='popbox-report-text'><strong>Report text</strong></p><br>",
-      substr(filtered_feet()$observed, 1, 400), "... ",
-      "<br><a href='", filtered_feet()$url, "'>click to see full report</a></div>"
-    ) %>%
-      lapply(htmltools::HTML)
-    
-    
-  })
-  
-  
-  
+
   
   ### define static parts of the map --------------------------------------------
   output$bigfoots_maps <- renderLeaflet({

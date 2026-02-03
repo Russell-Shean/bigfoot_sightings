@@ -27,5 +27,8 @@ report_class_plot_toolTip <- report_class_plot_toolTip_server("report_class_plot
 weekday_plot_toolTip <- weekday_plot_toolTip_server("weekday_plot_toolTip")
 
 
+filtered_feet <- filtering_criteria_server("filtering_criteria")
+reactive_labels <- reactive_labels_server("reactive_labels", filtered_feet)
+
 
 # Page 2 -----------------------------------------------------------------------
