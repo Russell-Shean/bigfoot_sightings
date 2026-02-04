@@ -3,16 +3,7 @@ page2_UI <- function() {
   tabPanel("Report Details",
            fluidPage(id = "page-two",
                      
-                     # this defines the text ribbon at the top of the second page:
-                     # html class is the same as first page's text ribbon
-                     
-                     # first row
-                     
-                     
-                     
-                     
                      ### Second page intro text --------------------------------------------------
-                     
                      fluidRow(
                        tags$div(class = "intro-text",
                                 HTML("The Bigfoot Field Researchers Organization assigns reports to one of three categories. For more information on the report classification system, please refer to their <a href='https://www.bfro.net/gdb/classify.asp#classification'>website</a>.<p id='classification-descriptions'><strong>Class A</strong>: A direct report where alternative explanations can be eliminated with high certainty<br><strong>Class B</strong>: A direct report where alternative explanations are more difficult to eliminate<br><strong>Class C</strong>: A secondhand report of a sighting.</p>"),

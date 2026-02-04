@@ -109,7 +109,6 @@ tabPanel(
                                   
                                   
                                   ### First page map/table missing values text ---------------------------------
-                                  
                                   missing_counties_note_UI("missing_counties_note")
                                   
                                   
@@ -158,11 +157,8 @@ tabPanel(
                                        ### sightings by year curve -----------------------------------------------------------
                                        sighting_counts_plot_UI("sighting_counts_plot"),
                                        
-                                       
-                                       
-                                       
+     
                                        ### sightings by year curve date slider--------------------------------------------------
-                                       
                                        tags$span(id = "slider-container",
                                                  tags$span(id = "date-slider2",
                                                            sliderInput("startdate",

@@ -1,20 +1,11 @@
 page3_UI <- function() {
-  
-  
-  
-  
-  
+ 
   ## Third page: Point map -----------------------------------------------------------------
-  
   tabPanel("Sightings Map",
-           
-           
+
            fluidPage(id = "page-3",
                      
-                     
-                     
                      ### Third page chart selectors ----------------------------------------------
-                     
                      fluidRow(
                        column(width = 12,
                               id = "choice_selector",tags$html(
@@ -47,10 +38,7 @@ page3_UI <- function() {
                                                                    "None"),
                                                        selected ="None")),
                               
-                              
-                              
                               #### Color variable choices --------------------------------------------------
-                              
                               tags$span(class = "map_choice-container",
                                         selectizeInput("color_var", "Select a Color Variable",
                                                        choices = c("Report Classification",
@@ -66,7 +54,6 @@ page3_UI <- function() {
                        ),
                        bigfoots_maps_UI("bigfoots_maps")
                        
-                       
-                       
+
                      )))
 }

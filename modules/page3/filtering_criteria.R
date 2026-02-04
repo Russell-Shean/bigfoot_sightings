@@ -43,23 +43,23 @@ filtering_criteria_server <- function(id) {
     
     filtered_feet <- reactive({
       
-      req(input$filtering_criteria)
-      
-      # This filters bigfoot points by the filtering criteria selected
-      # in the dropdown list
-      bigfoot_points %>%
-        dplyr::filter(season %in% input$filtering_criteria,
-                      report_weekday %in% input$filtering_criteria,
-                      county %in% input$filtering_criteria,
-                      classification %in% input$filtering_criteria)
-      
-      
+      if (is.null(input$filtering_criteria) || length(input$filtering_criteria) == 0) {
+        # Return an empty data frame with the same columns
+        bigfoot_points[0, ]
+        
+      } else {
+        
+        bigfoot_points %>%
+          dplyr::filter(
+            season %in% input$filtering_criteria,
+            report_weekday %in% input$filtering_criteria,
+            county %in% input$filtering_criteria,
+            classification %in% input$filtering_criteria
+          )
+      }
     })
-    
-    
+
     return(filtered_feet)
-    
-    
     
   })
 }
