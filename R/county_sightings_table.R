@@ -24,6 +24,12 @@ county_sightings_table_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     
     
+    # this selects just the columns we want to display in the data.table
+    Bigfoot_county_table <- Bigfoot_county_aggregations %>%
+      select(county,sightings_count,percent_of_total)
+    
+    
+    
 
 # name space is important because Shiny has a renderDT function too
 output$county_sightings_table <- DT::renderDT( Bigfoot_county_table,

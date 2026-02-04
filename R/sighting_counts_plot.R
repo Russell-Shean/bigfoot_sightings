@@ -1,7 +1,7 @@
 
 
 
-county_sightings_table_UI <- function(id) {
+sighting_counts_plot_UI <- function(id) {
   ns <- NS(id)
   
 tagList(
@@ -15,7 +15,7 @@ tags$div(
              # about where over the chart the user's mouse is hovering
              # this is how we tell the tool tip which column to display
              # info for
-             hover = hoverOpts("plot_hover",
+             hover = hoverOpts(ns("plot_hover"),
                                
                                # this (I think) puts a delay on how often
                                # hover info is recorded and sent to
@@ -29,23 +29,34 @@ tags$div(
 
 
 
-sighting_counts_plot_server <- function(id) {
+sighting_counts_plot_server <- function(id, county_choices, startdate) {
   moduleServer(id, function(input, output, session) {
 
 output$sighting_counts_plot <- renderPlot({
   
+  
+  req(
+    county_choices(),
+    startdate()
+  )
+  
   # this is what the plot looks like if the user hasn't clicked on a county on the map
   
-  if(input$county_choices == "Statewide"){
+  if(county_choices() == "Statewide"){
     
+    
+
     bigfoot_points %>%
       
       
       # this filters the date range based on what the user has set as the date
       # range with the slider
-      dplyr::filter(year_as_date %in% seq.Date(from = input$startdate[1],
-                                               to = input$startdate[2],
-                                               by = 1)) %>%
+      
+      dplyr::filter(
+        dplyr::between(year_as_date, 
+                       startdate()[1],
+                       startdate()[2])
+      ) |>
       
       count(year_as_date) %>%
       mutate(percent_of_total = round(n / nrow(bigfoot_points) * 100, digits = 1)) %>%
@@ -68,24 +79,23 @@ output$sighting_counts_plot <- renderPlot({
       
       #define plot labels
       labs( title = "TOTAL ANNUAL SIGHTINGS COUNT",
-            y = element_blank(),
+            y = NULL,
             x = "\nYear of Sighting")
+    
+    
     
     # this is is what happens if the user has clicked on a county on the map
   }else{
     
-    
-    
+
     bigfoot_county_date_aggregations %>%
       
       
       # this filters the date range based on what the user has set as the date
       # range with the slider
-      dplyr::filter(year_as_date %in% seq.Date( from = input$startdate[1],
-                                                to = input$startdate[2],
-                                                by = 1)) %>%
+      dplyr::filter(dplyr::between(year_as_date, startdate()[1], startdate()[2])) %>%
       
-      dplyr::filter(county == input$county_choices ) %>%
+      dplyr::filter(county == county_choices() ) %>%
       
       ggplot() +
       
@@ -96,9 +106,7 @@ output$sighting_counts_plot <- renderPlot({
       # it overlays a new county specific graph over the original graph
       
       geom_col( data = dplyr::filter(statewide_date_aggregations,
-                                     year_as_date %in% seq.Date(from = input$startdate[1],
-                                                                to = input$startdate[2],
-                                                                by = 1)),
+                                     dplyr::between(year_as_date, startdate()[1], startdate()[2])),
                 
                 aes(x = year_as_date, y = sightings_count), fill = "#0D6ABF",
                 
@@ -115,8 +123,8 @@ output$sighting_counts_plot <- renderPlot({
             axis.text.y = element_text(size = 12)) +
       
       
-      labs(title = paste0("TOTAL ANNUAL SIGHTINGS COUNT (", input$county_choices, ")"),
-           y = element_blank(),
+      labs(title = paste0("TOTAL ANNUAL SIGHTINGS COUNT (", county_choices(), ")"),
+           y = NULL,
            x = "\nYear of Sighting")
     
     

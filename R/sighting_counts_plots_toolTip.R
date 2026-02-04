@@ -9,7 +9,7 @@ sighting_counts_plot_toolTip_UI <- function(id) {
 }
 
 
-sighting_counts_plot_toolTip_server <- function(id) {
+sighting_counts_plot_toolTip_server <- function(id, county_choices, plot_hover) {
   moduleServer(id, function(input, output, session) {
     
     
@@ -18,26 +18,32 @@ sighting_counts_plot_toolTip_server <- function(id) {
 
 output$sighting_counts_plot_toolTip <- renderUI({
   
+  
+  
   # this has information about the mouse's location! speed! distance! velocity!
   # The who what when where of the mouse and where it's going
-  hover <- input$plot_hover
+  req(
+      county_choices(),
+      plot_hover()
+      )
+
   
   # if the mouse isn't over the plot the tool tip shouldn't appear
-  if (is.null(hover$x)) return(NULL)
+  if (is.null(plot_hover()$x)) return(NULL)
   
   # the tool tip returns a plot x value as a number instead of a date
   # so for comparison we need a vector of dates as numbers
   date_as_number <- as.numeric(sightings_date_range)
   
   #This is the x position on the plot where the tooltip is located
-  tooltip_x_position <- hover$x
+  tooltip_x_position <- plot_hover()$x
   
   # This if else logic is because I want statewide counts to display in the tooltip
   # if "Statwide is chosen from the drop down menus
   # and county specific values to appear in the
   # tooltip after they select  a county
   
-  if( input$county_choices == "Statewide" ){
+  if( county_choices() == "Statewide" ){
     
     # this filters the data based on the mouse's x axis location
     tool_tip_data <- bigfoot_points %>%
@@ -61,7 +67,7 @@ output$sighting_counts_plot_toolTip <- renderUI({
     tool_tip_data <- bigfoot_county_date_aggregations %>%
       # this further filters what we did above based on the county that's been
       # clicked on
-      filter(county == input$county_choices ) %>%
+      filter(county == county_choices() ) %>%
       filter(year_as_date == date_as_number[which(
         abs(date_as_number - tooltip_x_position)==
           min(abs(date_as_number - tooltip_x_position),
@@ -83,14 +89,14 @@ output$sighting_counts_plot_toolTip <- renderUI({
   # 🦩
   # calculate point position INSIDE the image as percent of total dimensions
   # from left (horizontal) and from top (vertical)
-  left_pct <- (hover$x - hover$domain$left) / (hover$domain$right - hover$domain$left)
-  top_pct <- (hover$domain$top - hover$y) / (hover$domain$top - hover$domain$bottom)
+  left_pct <- (plot_hover()$x - plot_hover()$domain$left) / (plot_hover()$domain$right - plot_hover()$domain$left)
+  top_pct <- (plot_hover()$domain$top - plot_hover()$y) / (plot_hover()$domain$top - plot_hover()$domain$bottom)
   
   # calculate distance from left and bottom side of the picture in pixels
-  left_px <- hover$range$left + left_pct * (hover$range$right - hover$range$left)
+  left_px <- plot_hover()$range$left + left_pct * (plot_hover()$range$right - plot_hover()$range$left)
   
   
-  top_px <- hover$range$top + top_pct * (hover$range$bottom - hover$range$top)
+  top_px <- plot_hover()$range$top + top_pct * (plot_hover()$range$bottom - plot_hover()$range$top)
   
   # This is a measure of how much we want to shift the popup
   # away from the location of the mouse/tooltip
@@ -123,7 +129,7 @@ output$sighting_counts_plot_toolTip <- renderUI({
   wellPanel(
     style = style,
     p(HTML( paste0("<b> Year: </b>", year(tool_tip_data$year_as_date), "<br/>",
-                   "<b> County: </b>", input$county_choices, "<br/>",
+                   "<b> County: </b>", county_choices(), "<br/>",
                    "<b> Number of Sightings: </b>", tool_tip_data$sightings_count, "<br/>",
                    "<br>","Counts that are below 10 are suppressed for<br> privacy and represented with an '*'")))
   )

@@ -8,9 +8,13 @@ season_table_UI <- function(id) {
   tagList(
     
 
+    DT::dataTableOutput(ns("season_table"))
+    
+    
+    
     )
     
-  )
+
 }
 
 

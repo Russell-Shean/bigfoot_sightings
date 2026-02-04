@@ -3,7 +3,7 @@
 # This adds an explanatory note to the bottom of the sighting my county map and table
 # telling the user how many sightings are missing location data
 
-county_sightings_table_UI <- function(id) {
+missing_counties_note_UI <- function(id) {
   ns <- NS(id)
   tagList(
     
