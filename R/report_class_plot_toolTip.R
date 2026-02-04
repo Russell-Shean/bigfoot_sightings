@@ -14,14 +14,16 @@ report_class_plot_toolTip_UI <- function(id) {
 
 
 
-report_class_plot_toolTip_server<- function(id) {
+report_class_plot_toolTip_server<- function(id, plot_hover) {
   moduleServer(id, function(input, output, session) {
 
 
 output$report_class_plot_toolTip <- renderUI({
   
-  # This data about the mouse's location over the plot
-  hover <- input$report_class_plot_hover
+  
+  req(plot_hover())
+  hover <- plot_hover()
+  
   
   # If the mouse isn't over the plot, the tool tip shouldn't be rendered
   if (is.null(hover$x)) return(NULL)

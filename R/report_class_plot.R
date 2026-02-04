@@ -8,7 +8,7 @@ report_class_plot_UI <- function(id) {
     plotOutput(ns("report_class_plot"),
                
                # records mouse hover data for Report Classification Bar Chart
-               hover = hoverOpts("report_class_plot_hover",
+               hover = hoverOpts(ns("plot_hover"),
                                  delay = 100,
                                  delayType = "debounce"))
     

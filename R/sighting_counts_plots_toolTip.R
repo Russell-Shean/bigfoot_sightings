@@ -8,6 +8,7 @@ sighting_counts_plot_toolTip_server <- function(id, county_choices, plot_hover) 
   moduleServer(id, function(input, output, session) {
     
     output$sighting_counts_plot_toolTip <- renderUI({
+      
       req(county_choices(), plot_hover())
       hover <- plot_hover()
       
