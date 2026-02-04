@@ -1,3 +1,9 @@
+
+# Load modules
+module_files <- list.files("modules", pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+sapply(module_files, source)
+
+
 server <- function(input, output, session) {
 
 # Page 1 -----------------------------------------------------------------------
