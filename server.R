@@ -11,9 +11,19 @@ report_class_plot <- report_class_plot_server("report_class_plot")
 season_table <- season_table_server("season_table")
 weekday_plot <- weekday_plot_server("weekday_plot")
 
+
+
+sighting_counts_plot_server(
+  "sighting_counts_plot",
+  county_choices = reactive(input$county_choices),
+  startdate = reactive(input$startdate)
+)
+
 sighting_counts_plot_toolTip <- sighting_counts_plot_toolTip_server("sighting_counts_plot_toolTip",
                                                                     county_choices = reactive(input$county_choices),
-                                                                    plot_hover = reactive(input$hover_plot)
+                                                                    plot_hover    = reactive({
+                                                                      input[["sighting_counts_plot-plot_hover"]]  # note the dash in Shiny module input IDs
+                                                                    })
                                                                     )
 
 
