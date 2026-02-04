@@ -72,8 +72,7 @@ sighting_counts_plot_toolTip_server <- function(id, county_choices, plot_hover) 
         p(HTML(paste0(
           "<b>Year:</b> ", year(tool_tip_data$year_as_date), "<br/>",
           "<b>County:</b> ", county_choices(), "<br/>",
-          "<b>Number of Sightings:</b> ", tool_tip_data$sightings_count, "<br/>",
-          "<br>Counts below 10 are suppressed for privacy and represented with '*'"
+          "<b>Number of Sightings:</b> ", tool_tip_data$sightings_count
         )))
       )
     })

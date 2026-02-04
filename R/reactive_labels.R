@@ -37,7 +37,7 @@ reactive_labels_server <- function(id, filtered_feet) {
     
     
     
-    
+    return(reactive_labels)
     
     
   })

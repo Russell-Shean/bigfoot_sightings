@@ -7,7 +7,7 @@ weekday_plot_UI <- function(id) {
     plotOutput(ns("weekday_plot"),
                
                # info about the user's mouse hoverings
-               hover = hoverOpts("plot_hover3",
+               hover = hoverOpts(ns("plot_hover"),
                                  delay = 100,
                                  delayType = "debounce"))
   )

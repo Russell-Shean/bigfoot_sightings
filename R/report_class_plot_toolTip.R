@@ -78,8 +78,7 @@ output$report_class_plot_toolTip <- renderUI({
     style = style,
     p(HTML(paste0("<b> Report Classification: </b>", classification_name, "<br/>",
                   "<b> Total Number of sightings: </b>", count_by_classification, "<br/>",
-                  "<b> Percent of Total sightings: </b>", paste0(percent_by_classification, "%"), "<br/>",
-                  "<br>","Counts that are below 10 are suppressed for<br> privacy and represented with an '*'" )))
+                  "<b> Percent of Total sightings: </b>", paste0(percent_by_classification, "%") )))
   )
   
   # 🦩

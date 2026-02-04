@@ -17,12 +17,14 @@ weekday_plot_toolTip_UI <- function(id) {
 
 
 
-weekday_plot_toolTip_server <- function(id) {
+weekday_plot_toolTip_server <- function(id, plot_hover) {
   moduleServer(id, function(input, output, session) {
     
 
 output$weekday_plot_toolTip <- renderUI({
-  hover <- input$plot_hover3
+  
+  req(plot_hover())
+  hover <- plot_hover()
   
   if (is.null(hover$x)) return(NULL)
   

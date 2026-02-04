@@ -40,7 +40,10 @@ season_table <- season_table_server("season_table")
 
 
 weekday_plot <- weekday_plot_server("weekday_plot")
-weekday_plot_toolTip <- weekday_plot_toolTip_server("weekday_plot_toolTip")
+weekday_plot_toolTip <- weekday_plot_toolTip_server("weekday_plot_toolTip",
+                                                    plot_hover    = reactive({
+                                                      input[["weekday_plot-plot_hover"]]  
+                                                    }))
 
 
 
@@ -54,7 +57,12 @@ filtered_feet <- filtering_criteria_server("filtering_criteria")
 
 
 reactive_labels <- reactive_labels_server("reactive_labels", filtered_feet)
-bigfoots_maps <- bigfoots_maps_server("bigfoots_maps", filtered_feet, reactive_labels)
+
+bigfoots_maps <- bigfoots_maps_server("bigfoots_maps", 
+                                      color_var = reactive(input$color_var),
+                                      size_var = reactive(input$size_var),
+                                      filtered_feet, 
+                                      reactive_labels)
 
 ## contact form part of the server -----------------------------------------------
 # This was adapted from this stack overflow answer:

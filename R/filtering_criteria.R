@@ -43,6 +43,8 @@ filtering_criteria_server <- function(id) {
     
     filtered_feet <- reactive({
       
+      req(input$filtering_criteria)
+      
       # This filters bigfoot points by the filtering criteria selected
       # in the dropdown list
       bigfoot_points %>%

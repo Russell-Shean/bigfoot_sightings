@@ -28,7 +28,7 @@ bigfoots_maps_UI <- function(id) {
 
 
 
-bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
+bigfoots_maps_server <- function(id, size_var, color_var, filtered_feet, reactive_labels) {
   moduleServer(id, function(input, output, session) {
     
     
@@ -69,7 +69,7 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
     # that it may be easier to follow if I do separate if statements with AND
     # to show all the conditions that are being met for a particular map instead
     # of these giant if else chains... Or.... somehow make this a function....
-    # eg. if(nrow( filtered_feet() ) < 1 & input$color_var=="None" & input$size_var=="Length of the Report")
+    # eg. if(nrow( filtered_feet() ) < 1 & color_var()=="None" & size_var()=="Length of the Report")
     
     # it works! So for now I'll leave it alone, but this probably needs some reworking
     
@@ -77,11 +77,11 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
       
       # If the filtering criteria are too restrictive and there are no
       # sighting left in the data, return an error message with a marker
-      
       req(
         filtered_feet(),
-        input$color_var,
-        input$size_var
+        reactive_labels(),
+        color_var(),
+        size_var()
       )
       
       if( nrow( filtered_feet() ) < 1 ){
@@ -107,11 +107,11 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
         
         # If none is selected as a color variable....
         
-      } else if(input$color_var == "None"){
+      } else if(color_var() == "None"){
         
         # If none is selected as a color variable....AND the size variable is set to "Length of Report"
         
-        if(input$size_var == "Length of the Report"){
+        if(size_var() == "Length of the Report"){
           
           leafletProxy(session$ns("bigfoots_maps"), data = filtered_feet()) %>%
             
@@ -166,14 +166,14 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
         # If color variable is not "None"
         # and the size variable is set to the length of report....
         
-        if(input$size_var == "Length of the Report"){
+        if(size_var() == "Length of the Report"){
           
           
           # If color variable is not "None"
           # and the size variable is set to the length of report....
           # And the color variable is selected as season
           
-          if( input$color_var == "Season" ){
+          if( color_var() == "Season" ){
             
             # Here we define a color palete and color mapping strategy
             # specifically for the season variable
@@ -213,7 +213,7 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
             # And the color variable is selected as Day of the Week
             
             
-          }else if( input$color_var == "Day of the Week" ){
+          }else if( color_var() == "Day of the Week" ){
             
             pal2 <- colorFactor(
               palette = c(large_pal[1:(length(levels(bigfoot_points$report_weekday)) - 1)], "#F3F2F1"),
@@ -251,7 +251,7 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
             # And the color variable is selected as Report Classification
             
             
-          } else if ( input$color_var == "Report Classification") {
+          } else if ( color_var() == "Report Classification") {
             
             pal2 <- colorFactor(
               palette = c(large_pal[1:(length(levels(bigfoot_points$classification)) - 1)], "#F3F2F1"),
@@ -310,7 +310,7 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
           
         } else{
           
-          if( input$color_var == "Season" ){
+          if( color_var() == "Season" ){
             
             pal2 <- colorFactor(
               palette = c(large_pal[1:(length(levels(bigfoot_points$season)) - 1)],"#F3F2F1"),
@@ -337,7 +337,7 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
                          position = "bottomleft")
             
             
-          } else if( input$color_var == "Day of the Week" ){
+          } else if( color_var() == "Day of the Week" ){
             
             pal2 <- colorFactor(
               palette = c(large_pal[1:(length(levels(bigfoot_points$report_weekday)) - 1)], "#F3F2F1"),
@@ -365,7 +365,7 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
                          position = "bottomleft")
             
             
-          } else if ( input$color_var == "Report Classification") {
+          } else if ( color_var() == "Report Classification") {
             
             pal2 <- colorFactor(
               palette = c(large_pal[1:(length(levels(bigfoot_points$classification)) - 1)], "#F3F2F1"),
@@ -412,10 +412,6 @@ bigfoots_maps_server <- function(id, filtered_feet, reactive_labels) {
     })
     
     
-    
-    
-    
-    
-    
+
   })
 }
