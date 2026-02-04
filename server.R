@@ -1,5 +1,5 @@
 # Load modules
-module_files <- list.files("modules", pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+module_files <- list.files("R/modules", pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
 sapply(module_files, source)
 
 
