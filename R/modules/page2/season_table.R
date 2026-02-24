@@ -36,6 +36,8 @@ output$season_table <- DT::renderDataTable(
                  paging = FALSE,
                  searching = FALSE,
                  scrollX = TRUE,
+                 scrollY = "400px",
+                 scrollCollapse = TRUE,
                  autoWidth = TRUE,
                  bAutoWidth = FALSE,
                  columnDefs = list(list(className = 'dt-body-center', targets = 1:3),
@@ -43,6 +45,7 @@ output$season_table <- DT::renderDataTable(
   rownames = FALSE
   
 )
+
 
 
   })
