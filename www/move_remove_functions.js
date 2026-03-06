@@ -71,10 +71,10 @@ document.querySelector("#classification-descriptions").remove();
 
 
 // make the map on the first page shorter
-document.querySelector("#county_sightings_map").style.height = "360px";
+document.querySelector("#county_sightings_map-county_sightings_map").style.height = "360px";
 
 // make the sightings chart on the first page shorter
-document.querySelector("#sighting_counts_plot").style.height = "360px";
+document.querySelector("#sighting_counts_plot-sighting_counts_plot").style.height = "360px";
 
 // remove top margin from the row that contains the
 // visuals on page 1

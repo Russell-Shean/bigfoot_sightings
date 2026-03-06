@@ -15,6 +15,7 @@ if(!require("pacman")){install.packages("pacman")}
 pacman::p_load(dplyr,
                jsonlite,
                lubridate,
+               lwgeom,
                magrittr,
                sf,
                stringr,
@@ -124,30 +125,33 @@ counties_with_bigfoots <- WA_bigfoot_df %>%
   dplyr::group_by(county) %>%
   dplyr::count()
 
-# This creates a blank simple features dataframe
-bigfoot_points <- sf::st_sample(wa_counties, 0)%>%
-  sf::st_as_sf()
 
-# This loops through all the counties with bigfoot sigthings
-
-for (i in 1:nrow(counties_with_bigfoots) ){
   
+
+
+
+#### Assign a random point within the county to each sighting ---------------------------------------------------------------------
   # This randomly samples from the county's shape file
   # once for each sightings and returns a random point within the subboundary
   # This is a way of randomly assigning locations to each sighting
   
-  bigfoot_points_temp <- sf::st_sample(wa_counties[wa_counties$JURISDICT_NM == counties_with_bigfoots$county[i], ],
-                                   counties_with_bigfoots$n[i]) %>%
-    sf::st_as_sf()
   
-  # This binds all the new points to the blank dataframe
-  bigfoot_points <- rbind(bigfoot_points,
-                          bigfoot_points_temp)
   
-}
+  # Join geometry first
+WA_joined <- WA_bigfoot_df %>%
+  left_join(
+    wa_counties %>% select(JURISDICT_NM, geometry),
+    by = c("county" = "JURISDICT_NM")
+  ) %>%
+  sf::st_as_sf()
 
-# This binds the data back onto the newly generated points. 
-bigfoot_points <- cbind(bigfoot_points, WA_bigfoot_df)
+# Sample one point per geometry using lengths trick
+bigfoot_points <- sf::st_sample(
+  WA_joined$geometry,
+  size = rep(1, nrow(WA_joined))
+) %>%
+  sf::st_as_sf() %>%
+  cbind(WA_bigfoot_df)
 
 
 ### aggregate sightings by just county-------------------------------------------------
