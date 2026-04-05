@@ -25,7 +25,7 @@ tabPanel(
                               
                               # this defines a block of text within in a "code" html element
                               tags$div(class="intro-text",
-                                       "Bigfoot surveillance data are updated on the second tuesday after every full moon in February, or when we feel like it 😅. We make every effort to guarentee the accuracy of all the data that is entered into our data systems, but because we rely on the public to report sightings, we can't guarantee that every reported sighting wasn't actually a yeti or an abominable snowman. To report a sighting please send us an email!",
+                                       'This dashboard shows an example of how R shiny can be used to visualize data. Data was scraped from an online database of bigfoot sightings. This dashboard does not include new reports made since the last updated date in the top right corner. To remove this header click the "condense dashboard" button below.',
                                        tags$br(),
                                        tags$p(class="time-stamp",
                                               tags$strong("Last Updated: March 6th, 2024 10:00 AM")))

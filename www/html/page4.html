@@ -9,33 +9,26 @@
     <!-- <h4> is a heading -->
       <h4>Data Definitions and Methods</h4>
       <strong>Data suppression:</strong>
-      To protect the privacy of individual bigfeets, counts of fewer than 10 are not reported. We realize that many bigfeets would prefer to maintain privacy, however we also feel the public has the right to know about sightings because they have important environmental and conservation implications. This policy is consistent with best practices for data sharing in paranormal activity survalience. Some additional values that could allow someone to calculate those small numbers are also not reported.
+      To mimic privacy protections for public health data, counts of fewer than 10 are not reported. Some additional values that could allow someone to back calculate to the suppressed small numbers are also not reported.
     </div>
-    <div>
-      <h4 id="hulk">Case Data</h4>
-      <strong>Sightings are defined by any of the following:</strong>
-      
-      <!-- <ul> makes an unordered list (bullet points), li is each bullet point -->
+        <div>
+      <h4>Data Source</h4>
+      <strong>Bigfoot Field Researchers Organization</strong>: Unless otherwise noted, all the data come bigfoot sightings reported to the Bigfoot Field Researchers Organization and scraped from their <a href="https://www.bfro.net/">website</a>. 
+      <br>
+      <strong>Point map:</strong>
       <ul>
-        <li>Blurry photos or videos</li>
-        <li>Really cool bigfoot tattoos if the person also has a really good story</li>
         <li>
-          Someone swearing that they really saw one AND one of the following:
-      
-      <!-- <ol> starts an ordered list (numbers), <li> is each number -->
-          <ol>
-            <li>An autograph from a bigfoot</li>
-            <li>A cast of a bigfoot footprint</li>
-            <li>An appropriately large 'donation' to our organization</li>
-          </ol>
+          All of the sightings featured on the point map are
+          <em>real</em>
+          sightings scraped from the
+          <a href="https://www.bfro.net/GDB/state_listing.asp?state=wa">BFRO website</a>
         </li>
+        <li>Most of the sightings are not geocoded, so I randomly assigned each sighting to a random location in the county where the sighting occurred. Don't panic if you see a bigfoot next to your house.  The sighting didn't actually happen in your backyard, just in the same county as your backyard.</li>
       </ul>
-      <strong>Bigfoot safety:</strong>
-      Bigfeets are friendly and often give directions and snacks to lost hikers. They're more scared of you than you should be of them.
-      <br/>
-      <br/>
-      <strong>Hiking safety: </strong>
-      Always carry a flashlight and enough water.
+      <strong>Other data unavailable from the BFRO website:</strong>
+      <ul>
+        <li>In some limited cases data was made up using a random number generator</li>
+      </ul>
     </div>
     <br/>
     <div>
@@ -43,7 +36,7 @@
       <a href="https://www.arcgis.com/apps/View/index.html?appid=f987f36187c140aeab6eb157e909eb64">Sightings map</a>
       <br/>
       
-      <!-- <a> is a linke, the href attribute is the link's url, the text between
+      <!-- <a> is a link, the href attribute is the link's url, the text between
                <a> and </a> is the text the user sees for the link -->
       <a href="https://www.bfro.net/">Bigfoot Field Researchers Organization (BFRO)</a>
       <br/>
@@ -55,31 +48,14 @@
       <br/>
       <br/>
     </div>
-    <div>
-      <h4>Okay, so where did the data really come from?</h4>
-      <strong>Point map:</strong>
-      <ul>
-        <li>
-          All of the sightings featured on the point map are
-          <em>real</em>
-          sightings scraped from the
-          <a href="https://www.bfro.net/GDB/state_listing.asp?state=wa">BFRO website</a>
-        </li>
-        <li>Most of the sightings are not geocoded, so I randomly assigned each sighting to a random location in the county where the sighting occured. Don't panic if you see a bigfoot next to your house.  The sighting didn't actually happen in your backyard, just in the same county as your backyard.</li>
-      </ul>
-      <strong>Everything else:</strong>
-      <ul>
-        <li>All the other data are completely made up using a random number generator</li>
-      </ul>
-    </div>
     <br/>
     <div>
       <h4>Why are we looking at bigfoot sightings again?</h4>
-      The main purpose of this exercise is to test the feasibility of using shiny to make dashboards. Even if we used fake data for a real health condition, we run the risk of inadvertantly making people thing the data are real.  I used bigfoot sightings as our condition of interest so that we could reduce the risk of miscommunication with the public while we're testing this techology and evaluating security and publishing options.
+      The main purpose of this exercise is to test the feasibility of using shiny to make dashboards. Even if we used fake data for a real health condition, we run the risk of inadvertently making people thing the data are real.  I used bigfoot sightings as our condition of interest so that we could reduce the risk of miscommunication with the public while we're testing this technology and evaluating security and publishing options.
     </div>
     <br/>
     <div>
-      <h4>Can you share your code for this cool shiny dashboard?</h4>
+      <h4>Can you share your code for this shiny dashboard?</h4>
       Yes! The code is available on GitHub: <a href="https://github.com/Russell-Shean/bigfoot_sightings">https://github.com/Russell-Shean/bigfoot_sightings</a> 
       <br/>
       <br/>
