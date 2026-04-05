@@ -30,15 +30,13 @@ sudo docker run  -p 6599:6599 rshean/bigfoot-shiny:latest
 If you don't have docker on your computer, you can also run the container on this online sandbox: https://labs.play-with-docker.com/ 
  
 # File organization        
-The `app.R` file is divided into three main parts:
-1. <strong>Pre-processing</strong>: This section includes some filtering and data aggregation. It also sets file paths, shiny port numbers, and plot and map aestetics and themes.       
-2. <strong>User Interface (UI)</strong>: This section specifies the layout and look of the webpage that users see when they interact with the shiny. The html elements for inputs and ouputs are defined here. (Their behavior is defined later in the server section).       
-3. <strong>Server</strong>: This section is where the backend behavior of the app is defined. It also includes a lot of the aesthetic settings for r objects such as maps, plots, and tables. This is where <em>almost</em> all the reactive and interactive programing behavior is defined. 
+1. The app is separated into modules stored in the R/modules folder. The modules are further divided into folders for each page of the app. 
 
-The `App.R` file executes/loads serveral external files including      
-1. HTML, CSS, and javascript files stored in the `www/` folder         
+2. The app also executes/loads HTML, CSS, and javascript files stored in the `www/` folder.         
 
-2. R scripts that define functions and pre process data stored in the `r_scripts` folder
+2. R scripts that define functions for tasks such as pre-processing the data are stored in the `r_scripts` folder.
+
+3. Python scripts for scraping the data are stored in the `python` folder.
 
 
 
