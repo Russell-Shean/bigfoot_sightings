@@ -11,6 +11,7 @@ LABEL maintainer="Russ <russell.shean@doh.wa.gov>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
+    adduser \
     libcurl4-gnutls-dev \
     libcairo2-dev \
     libxt-dev \
@@ -21,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     gdal-bin \
     libsodium-dev \
+    libuv1-dev \
     libgdal-dev \
     libssh2-1-dev \
     && rm -rf /var/lib/apt/lists/*
