@@ -50,3 +50,9 @@ rsconnect/
 
 # R project file
 *.Rproj
+
+#coding demo files
+coding-demo.html
+coding-demo.qmd
+coding-demo_files/
+
