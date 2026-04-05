@@ -30,13 +30,13 @@ sudo docker run  -p 6599:6599 rshean/bigfoot-shiny:latest
 If you don't have docker on your computer, you can also run the container on this online sandbox: https://labs.play-with-docker.com/ 
  
 # File organization        
-1. The app is separated into modules stored in the R/modules folder. The modules are further divided into folders for each page of the app. 
+1. The app is separated into modules stored in the `R/modules/` folder. The modules are further divided into folders for each page of the app. Settings and functions are defined outside of the modules inside of the `R/` folder.
 
 2. The app also executes/loads HTML, CSS, and javascript files stored in the `www/` folder.         
 
-2. R scripts that define functions for tasks such as pre-processing the data are stored in the `r_scripts` folder.
+2. An R script that pre-processes the data is stored in the `R/data_cleaning/` folder.
 
-3. Python scripts for scraping the data are stored in the `python` folder.
+3. Python scripts for scraping the data are stored in the `python/` folder.
 
 
 
