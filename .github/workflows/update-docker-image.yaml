@@ -1,4 +1,4 @@
-name: Deploy to shinyapps.io
+name: Push update version of docker image to docker hub
 on:
   push:
     branches:

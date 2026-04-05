@@ -47,7 +47,8 @@ WORKDIR /home/analysis/
 COPY data data/ 
 COPY R R/
 COPY www www/ 
-COPY app.R /home/analysis/
+COPY ui.R /home/analysis/
+COPY server.R /home/analysis/
 
 #  https://hosting.analythium.io/dockerizing-shiny-applications/, 
 #  https://hosting.analythium.io/dockerized-shiny-apps-with-dependencies/, 
