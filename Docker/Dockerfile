@@ -3,7 +3,7 @@
 FROM rocker/r-base:latest
 
 # This adds a tag to the image's meta data, it specifies the maintainer as me
-LABEL maintainer="Russ <russell.shean@doh.wa.gov>"
+LABEL maintainer="Russ <russshean@gmail.com>"
 
 # This executes some linux commands to update all packages and then install packages
 # Sudo is a mode with privliges 
@@ -29,12 +29,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # This runs the install.r command which install R packages
 # So this is a list of r packages that will be installed   
-RUN install.r dplyr DT lubridate RColorBrewer sf shiny shinycssloaders shinyjs shinyWidgets pacman
+RUN install.r dplyr DT ggplot2 lubridate RColorBrewer sf shiny shinycssloaders shinyjs shinyWidgets pacman
 
 # Make sure we're getting the latest version of leaflet...
-RUN R -e "install.packages('leaflet', dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
+RUN R -e "install.packages(c('leaflet', 'leaflet.providers'), dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
 
-RUN R -e "install.packages('leaflet.providers', dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
 
 # This sets the port and writes it to an rprofile file in the container
 RUN echo "local(options(shiny.port = 6599, shiny.host = '0.0.0.0'))" > /usr/lib/R/etc/Rprofile.site
@@ -53,16 +52,20 @@ COPY ui.R /home/analysis/
 COPY server.R /home/analysis/
 
 #  https://hosting.analythium.io/dockerizing-shiny-applications/, 
-#  https://hosting.analythium.io/dockerized-shiny-apps-with-dependencies/, 
+#  https://hosting.analythium.io/dockerized-shiny-apps-with-dependencies/,
 
+# Create a system user and group, then give them ownership of the app directory
 RUN addgroup --system app \
-    && adduser --system --ingroup app app
+    && adduser --system --ingroup app app\
+    && chown -R app:app /home/analysis
+
     
 
 # COPY bigfoot_shiny_demo-main .
 # RUN chown app:app -R /home/app
 USER app
 EXPOSE 6599
+
 CMD ["R", "-e", "shiny::runApp('/home/analysis/')"]
 
 
