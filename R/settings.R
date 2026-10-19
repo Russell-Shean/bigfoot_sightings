@@ -1,19 +1,46 @@
 
 
 ## Load libraries -------------------------------------------------------------
-if(!require("pacman")){install.packages("pacman")}
+# Define libaries
+my_packages <- c("dplyr",
+                 "DT",
+                 "ggplot2",
+                 "leaflet",
+                 "lubridate",
+                 "RColorBrewer",
+                 "sf",
+                 "shiny",
+                 "shinycssloaders",
+                 "shinyjs",
+                 "shinyWidgets")
 
-pacman::p_load("dplyr",
-               "DT",
-               "ggplot2",
-               "leaflet",
-               "lubridate",
-               "RColorBrewer",
-               "sf",
-               "shiny",
-               "shinycssloaders",
-               "shinyjs",
-               "shinyWidgets")
+
+# Check to see if the code is running inside a docker container
+is_docker <- Sys.getenv("RUNNING_IN_DOCKER") == "true"
+
+
+
+if (is_docker) {
+  # load with library inside the container
+  lapply(packages, library, character.only = TRUE)
+  
+} else{
+  
+  
+  # We'll use pacman if running locally so that the user doesn't
+  # have to deal with installing packages themselves
+  
+  
+  if(!require("pacman")){install.packages("pacman")}
+  
+  pacman::p_load(my_packages, character.only = TRUE)
+  
+  
+  
+  
+}
+
+
 
 ## define file paths
 

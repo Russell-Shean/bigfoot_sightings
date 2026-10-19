@@ -1,6 +1,7 @@
 # This imports the base image which comes from the rocker project
 # they've already made a docker image for base R
 FROM rocker/r-base:latest
+ENV RUNNING_IN_DOCKER=true
 
 # This adds a tag to the image's meta data, it specifies the maintainer as me
 LABEL maintainer="Russ <russshean@gmail.com>"
