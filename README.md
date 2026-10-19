@@ -27,7 +27,7 @@ The app can also be run as a docker container
 ```
 sudo docker run  -p 6599:6599 rshean/bigfoot-shiny:latest
 ```
-If you don't have docker on your computer, you can also run the container on this online sandbox: https://labs.play-with-docker.com/ 
+If you don't have docker on your computer, you can also run the container on an online sandbox such as [Google Cloud Shell](https://shell.cloud.google.com/). 
  
 # File organization        
 1. The app is separated into modules stored in the `R/modules/` folder. The modules are further divided into folders for each page of the app. Settings and functions are defined outside of the modules inside of the `R/` folder.
