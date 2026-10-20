@@ -60,9 +60,7 @@ round_add_commas <- function(x){
 #' @details
 #' This function depends on the `round_add_commas()` function that is also
 #' in this `functions.R` file. It also depends on the `dplyr` package
-#' @seealso [round_add_commas()], see also this method for using `dplyr::filter`
-#' in functions: https://stackoverflow.com/a/45263058/16502170
-#' @export
+#' @seealso [round_add_commas()]
 make_missing_values_labels <- function(variable, df = bigfoot_points){
   
   df <- df %>% sf::st_drop_geometry()
@@ -76,12 +74,12 @@ make_missing_values_labels <- function(variable, df = bigfoot_points){
   
   # This returns the total number of rows where the variable is NA
   na_values <- df %>% 
-    dplyr::filter(is.na((.)[variable])) %>%
+    dplyr::filter(is.na(.data[[variable]])) %>%
     nrow() 
-  
+
   # This returns the total number of rows where the variable is equal to "Unkown"
   unknown <- df %>% 
-    dplyr::filter( (.)[variable] == "Unknown") %>%
+    dplyr::filter(.data[[variable]] == "Unknown") %>%
     nrow() 
   
   

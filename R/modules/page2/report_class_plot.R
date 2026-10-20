@@ -51,8 +51,8 @@ output$report_class_plot <- renderPlot({
           axis.text.y = element_text(size = 12)) +
     
     # define plot labels
-    labs(y = element_blank(),
-         x = element_blank())
+    labs(y = NULL,
+         x = NULL)
   
 })
 

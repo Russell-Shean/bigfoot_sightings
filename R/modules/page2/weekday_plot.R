@@ -45,8 +45,8 @@ output$weekday_plot <- renderPlot({
     
     
     #define labels
-    labs(y = element_blank(),
-         x = element_blank())    })
+    labs(y = NULL,
+         x = NULL)    })
 
 
   })

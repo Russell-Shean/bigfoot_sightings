@@ -20,19 +20,26 @@ ui <- navbarPage(
   # This is the title of the overall webpage:
   "BIGFOOT SIGHTINGS IN WASHINGTON STATE DASHBOARD",
   
-  # This enables the shinyjs library inside the app
-  # I used this for the email server
-  useShinyjs(),
   
-  ## CSS style tags---------------------------------------------------------------
-  # here are a bunch of Cascading Style Sheets (CSS) style for different elements
+  header = tagList(
+    # This enables the shinyjs library inside the app
+    # I used this for the email server
+    useShinyjs(),
+    
+    ## CSS style tags---------------------------------------------------------------
+    # here are a bunch of Cascading Style Sheets (CSS) style for different elements
+    
+    # Here's how to load an external css style sheet
+    # it needs to be stored in a sub-directory named www/
+    # https://shiny.rstudio.com/articles/css.html
+    
+    # /* CSS comments look like this */
+    tags$link(rel = "stylesheet", type = "text/css", href = "css/bigfoot_dashboard_styles.css"),
+    
+    
+  ),
   
-  # Here's how to load an external css style sheet
-  # it needs to be stored in a sub-directory named www/
-  # https://shiny.rstudio.com/articles/css.html
   
-  # /* CSS comments look like this */
-  tags$link(rel = "stylesheet", type = "text/css", href = "css/bigfoot_dashboard_styles.css"),
   
   ## Pages
   page1_UI(),
@@ -54,13 +61,16 @@ ui <- navbarPage(
   ),
   
   ## Website footer -------------------------------------------------------------
-  footer = includeHTML("www/html/site_footer.html"),
+  footer = tagList(
+                   includeHTML("www/html/site_footer.html"),
+                       # these scripts are run at the end
+                       # bc they need to run AFTER the page has finished rendered
+                       # one script removes weird random dots that appear
+                       # and the other moves the location of the time stamp
+                       tags$script(src="move_remove_functions.js")
+                       )
   
-  # these scripts are run at the end
-  # bc they need to run AFTER the page has finished rendered
-  # one script removes weird random dots that appear
-  # and the other moves the location of the time stamp
-  tags$script(src="move_remove_functions.js"),
+  
 
 )
 
