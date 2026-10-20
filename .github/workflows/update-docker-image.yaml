@@ -38,3 +38,5 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bigfoot-shiny:latest
           file: Docker/Dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

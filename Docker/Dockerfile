@@ -44,6 +44,12 @@ RUN mkdir /home/analysis
 # specifiy the working directory on the machine that's being used to create the container
 WORKDIR /home/analysis/
 
+# Create a system user and group, then give them ownership of the app directory
+RUN addgroup --system app \
+    && adduser --system --ingroup app app\
+    && chown -R app:app /home/analysis
+
+
 # copy the shiny app folder to the container
 COPY data data/ 
 COPY R R/
@@ -54,10 +60,6 @@ COPY server.R /home/analysis/
 #  https://hosting.analythium.io/dockerizing-shiny-applications/, 
 #  https://hosting.analythium.io/dockerized-shiny-apps-with-dependencies/,
 
-# Create a system user and group, then give them ownership of the app directory
-RUN addgroup --system app \
-    && adduser --system --ingroup app app\
-    && chown -R app:app /home/analysis
 
     
 
