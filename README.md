@@ -17,7 +17,8 @@ Here are some screenshots of what this demonstration app looks like. Scroll past
 
 # How to run a live version of this app
 1. Clone this repo as an R Project in Rstudio
-2. Open the `app.R` file in Rstudio and click on the run app button:
+2. Install the packages listed in the `R/settings.R file`
+3. Open the `app.R` file in Rstudio and click on the run app button:
 
   <p align="center">          
   <img src="https://user-images.githubusercontent.com/119683040/215877771-f2573a55-cd9d-421e-84ed-7b21aeae1ae9.png">             
