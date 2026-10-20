@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # This runs the install.r command which install R packages
 # So this is a list of r packages that will be installed   
-RUN install2.r--error --skipinstalled \
+RUN install2.r --error --skipinstalled \
     DT \
     leaflet.providers \
     RColorBrewer \
