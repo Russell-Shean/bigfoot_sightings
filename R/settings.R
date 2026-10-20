@@ -2,11 +2,8 @@
 # Define libaries
 library(dplyr)
 library(DT)
-print("reached here! 1")
 library(ggplot2)
-print("reached here! 2")
 library(leaflet)
-print("reached here! 3")
 library(lubridate)
 library(RColorBrewer)
 library(sf)

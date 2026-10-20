@@ -5,27 +5,6 @@ FROM rocker/geospatial:latest
 # This adds a tag to the image's meta data, it specifies the maintainer as me
 LABEL maintainer="Russ <russshean@gmail.com>"
 
-# This executes some linux commands to update all packages and then install packages
-# Sudo is a mode with privliges 
-# everything after sudo is a linux dependency
-
-##RUN apt-get update && apt-get install -y --no-install-recommends \
-    #sudo \
-    #adduser \
-    #libcurl4-gnutls-dev \
-    #libcairo2-dev \
-    #libxt-dev \
-    #libssl-dev \
-    #libudunits2-dev \
-    ##libsecret-1-0 \
-    #proj-bin \
-    #libpq-dev \
-    #gdal-bin \
-    ##libsodium-dev \
-    ##libuv1-dev \
-    #libgdal-dev \
-    #libssh2-1-dev \
-    ##&& rm -rf /var/lib/apt/lists/*
 
 # This runs the install.r command which install R packages
 # So this is a list of r packages that will be installed   

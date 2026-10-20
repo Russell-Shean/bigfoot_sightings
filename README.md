@@ -26,7 +26,7 @@ Here are some screenshots of what this demonstration app looks like. Scroll past
 
 The app can also be run as a docker container
 ```
-sudo docker run  -p 6599:6599 rshean/bigfoot-shiny:latest
+docker run  -p 6599:6599 rshean/bigfoot-shiny:latest
 ```
 If you don't have docker on your computer, you can also run the container on an online sandbox such as [Google Cloud Shell](https://shell.cloud.google.com/). 
  
