@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN install.r dplyr DT ggplot2 leaflet leaflet.providers lubridate RColorBrewer sf shiny shinycssloaders shinyjs shinyWidgets pacman
 
 # Make sure we're getting the latest version of leaflet...
-RUN R -e "install.packages(c('leaflet', 'leaflet.providers'), dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
+#RUN R -e "install.packages(c('leaflet', 'leaflet.providers'), dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
 
 
 # This sets the port and writes it to an rprofile file in the container
