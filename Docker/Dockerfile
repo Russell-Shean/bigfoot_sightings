@@ -9,23 +9,23 @@ LABEL maintainer="Russ <russshean@gmail.com>"
 # Sudo is a mode with privliges 
 # everything after sudo is a linux dependency
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    sudo \
-    adduser \
-    libcurl4-gnutls-dev \
-    libcairo2-dev \
-    libxt-dev \
-    libssl-dev \
-    libudunits2-dev \
-    libsecret-1-0 \
-    proj-bin \
-    libpq-dev \
-    gdal-bin \
-    libsodium-dev \
-    libuv1-dev \
-    libgdal-dev \
-    libssh2-1-dev \
-    && rm -rf /var/lib/apt/lists/*
+##RUN apt-get update && apt-get install -y --no-install-recommends \
+    #sudo \
+    #adduser \
+    #libcurl4-gnutls-dev \
+    #libcairo2-dev \
+    #libxt-dev \
+    #libssl-dev \
+    #libudunits2-dev \
+    ##libsecret-1-0 \
+    #proj-bin \
+    #libpq-dev \
+    #gdal-bin \
+    ##libsodium-dev \
+    ##libuv1-dev \
+    #libgdal-dev \
+    #libssh2-1-dev \
+    ##&& rm -rf /var/lib/apt/lists/*
 
 # This runs the install.r command which install R packages
 # So this is a list of r packages that will be installed   
@@ -43,7 +43,9 @@ RUN install2.r --error --skipinstalled \
 
 
 # This sets the port and writes it to an rprofile file in the container
-RUN echo "local(options(shiny.port = 6599, shiny.host = '0.0.0.0'))" > /usr/lib/R/etc/Rprofile.site
+RUN mkdir -p /usr/local/lib/R/etc \
+    && echo "local(options(shiny.port = 6599, shiny.host = '0.0.0.0'))" > /usr/local/lib/R/etc/Rprofile.site
+
 
 # create a new folder inside the container
 RUN mkdir /home/analysis
