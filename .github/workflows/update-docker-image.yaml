@@ -10,7 +10,7 @@ on:
       - ui.R
       - server.R
       - data/**
-      - Docker/
+      - Docker/**
 
   # run on request (via button in actions menu)
   workflow_dispatch:
