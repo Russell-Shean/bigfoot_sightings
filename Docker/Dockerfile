@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # This runs the install.r command which install R packages
 # So this is a list of r packages that will be installed   
-RUN install.r dplyr DT ggplot2 lubridate RColorBrewer sf shiny shinycssloaders shinyjs shinyWidgets pacman
+RUN install.r dplyr DT ggplot2 leaflet leaflet.providers lubridate RColorBrewer sf shiny shinycssloaders shinyjs shinyWidgets pacman
 
 # Make sure we're getting the latest version of leaflet...
 RUN R -e "install.packages(c('leaflet', 'leaflet.providers'), dependencies = TRUE, repos = c(CRAN = 'https://cloud.r-project.org'))"
